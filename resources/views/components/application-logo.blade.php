@@ -1,0 +1,1 @@
+<img src="{{asset('images/logo.png')}}" class="rounded-circle" width="100px" alt="Logo">
