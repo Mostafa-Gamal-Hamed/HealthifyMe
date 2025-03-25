@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('carbs')->default(0);
             $table->float('fats')->default(0);
             $table->string('vitamins')->nullable();
+            $table->float('fiber')->default(0);
             $table->string('image');
             $table->timestamps();
         });

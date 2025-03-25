@@ -128,6 +128,9 @@
                                 </span>`;
                                 }
 
+                                var show   = `{{ route('admin.user.show', '') }}/${user.id}`;
+                                var remove = `{{ route('admin.user.delete', '') }}/${user.id}`;
+
                                 body.append(`
                                     <tr>
                                         <td scope="row">${user.id}</td>
@@ -138,12 +141,12 @@
                                         <td>${createdAt}</td>
                                         <td>${verified || 'Not Verified'}</td>
                                         <td>
-                                            <a href="{{ route('admin.user.show', $user->id) }}" class="btn btn-md btn-success">
+                                            <a href="${show}" class="btn btn-md btn-success">
                                                 <i class="fa-solid fa-info"></i></i>
                                             </a>
                                         </td>
                                         <td>
-                                            <form action="{{ route('admin.user.delete', $user->id) }}" method="POST">
+                                            <form action="${remove}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-md"

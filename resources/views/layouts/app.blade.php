@@ -16,17 +16,24 @@
 
         {{-- Css --}}
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-        
-        {{-- jQuery --}}
-        <script src="{{ asset('js/jQuery.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/owl.theme.green.min.css') }}">
+        <link href="{{ asset('admin/css/Featherlight.css') }}" rel="stylesheet">
 
         <!-- Build -->
         <link rel="stylesheet" href="{{asset('build/assets/app-BwHaPEbd.css')}}">
         <script src="{{asset('build/assets/app-CbEvcXly.js')}}"></script>
+
+        {{-- SweetAlert --}}
+        <script src="{{ asset('js/sweetAlert.js') }}"></script>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
+
+            {{-- jQuery --}}
+            <script src="{{ asset('js/jQuery.js') }}"></script>
 
             <!-- Page Heading -->
             @isset($header)
@@ -37,6 +44,9 @@
                 </header>
             @endisset
 
+            <!-- message -->
+            @include("message")
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}
@@ -45,5 +55,7 @@
 
         {{-- Js --}}
         <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('admin/js/Featherlight.js') }}"></script>
+        <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     </body>
 </html>

@@ -177,7 +177,10 @@ nav div.dropdown a.show{
 }
 nav div.dropdown ul.show{
     font-weight: bold !important;
-    background-color: #4cad0f !important;
+    background-color: #5ac715 !important;
+}
+nav div.dropdown ul.show li:hover{
+    background-color: white !important;
 }
 
 .badge {

@@ -24,18 +24,23 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="{{ route('food.foods', 'Fruit') }}" class="dropdown-item">
+                        <a href="{{ route('food.type', 'Fruit') }}" class="dropdown-item">
                             Fruits
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('food.foods', 'Vegetable') }}" class="dropdown-item">
+                        <a href="{{ route('food.type', 'Vegetable') }}" class="dropdown-item">
                             Vegetables
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('food.type', 'Drinks') }}" class="dropdown-item">
+                            Drinks
                         </a>
                     </li>
                     <hr class="m-0 mt-2">
                     <li>
-                        <a href="{{ route('food.foods', 'Vegetable') }}" class="dropdown-item">
+                        <a href="{{ route('food.foods') }}" class="dropdown-item">
                             See All
                         </a>
                     </li>

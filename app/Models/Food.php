@@ -15,6 +15,7 @@ class Food extends Model
         "carbs",
         "fats",
         "vitamins",
+        "fiber",
     ];
 
     // Relationships

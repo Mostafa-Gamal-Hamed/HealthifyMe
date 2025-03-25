@@ -84,6 +84,17 @@
                                 @enderror
                             </div>
 
+                            {{-- Fiber --}}
+                            <div class="col-5 mb-3">
+                                <label for="fiber">Fiber:</label>
+                                <input type="number" name="fiber"
+                                    class="form-control @error('fiber') is-invalid @enderror" id="fiber"
+                                    value="{{ $food->fiber }}" placeholder="Write fiber" step="0.01">
+                                @error('fiber')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+
                             {{-- Category --}}
                             <div class="input-group col-5 mb-3">
                                 <label class="input-group-text" for="inputGroupSelect01">Category</label>

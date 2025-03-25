@@ -41,7 +41,19 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password'  => bcrypt('Mm123456@'),
             'role'      => 'admin',
-            'status'    => 'active',
+            'status'    => 'inactive',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        User::create([
+            'firstName' => 'ahmed',
+            'lastName'  => 'mohassen',
+            'email'     => 'ah@ah.ah',
+            'email_verified_at' => now(),
+            'password'  => bcrypt('Mm123456@'),
+            'role'      => 'doctor',
+            'status'    => 'inactive',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -54,7 +66,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password'  => bcrypt('Mm123456@'),
                 'role'      => 'user',
-                'status'    => 'active',
+                'status'    => 'inactive',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

@@ -21,6 +21,7 @@
                     <h4 class="fw-bold">Carbs: {{ $food->carbs }}</h4>
                     <h4 class="fw-bold">Fats: {{ $food->fats }}</h4>
                     <h4 class="fw-bold">Vitamins: {{ $food->vitamins }}</h4>
+                    <h4 class="fw-bold">Fiber: {{ $food->fiber }}</h4>
                     <p class="fw-bold d-flex gap-2">Category:
                         <a href="{{ route('admin.category.categories') }}">
                             {{ $food->category->name }}

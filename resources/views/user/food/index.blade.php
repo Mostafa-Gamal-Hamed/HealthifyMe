@@ -1,103 +1,35 @@
 @extends('user.layout')
 
 @section('title')
-    {{ $category->name }}
+    Categories
 @endsection
 
 @section('body')
     <div class="titlepage mt-5">
-        <h2>{{ $category->name }}</h2>
+        <h2>Categories</h2>
     </div>
 
     <div class="container mb-5">
-        @if ($foods->isEmpty())
+        @if ($categories->isEmpty())
             <h2 class="text-center text-danger fw-bold">Empty</h2>
         @else
-            <h4 class="text-center fw-bold">Click on one <i class="fa-solid fa-arrow-down"></i></h4>
-            <div class="row justify-content-center align-items-center mb-3 gap-2">
-                @foreach ($foods as $food)
-                    @php
-                        $rand = $color[array_rand($color)];
-                    @endphp
-
-                    <button class="col btn btn-sm btn-{{ $rand }} showFood" data-id="{{ $food->id }}">{{ $food->name }}</button>
-                @endforeach
-            </div>
-            <div style="max-height: 700px;min-height: 500px;width: 100%;">
-                {{-- Logo --}}
-                <div id="logoBeforeFood" class="text-center"><img src="{{ asset('images/logo.png') }}" class="img-fluid" width="50%" alt="Logo"></div>
-
-                {{-- Food --}}
-                <div class="row shadow bg-light shadow-lg justify-content-center p-3 gap-2" id="details"
-                    style="display: none;">
-                    <p class="col-xl-12 text-center text-success fw-bold">Items per 100g</p>
-                    <div class="col-xl-5">
-                        <div class="about-box_img">
-                            <figure>
-                                <img src="" class="img-fluid rounded" id="foodImage" alt="Food">
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 position-relative">
-                        <div class="about-box">
-                            <h1 class="fw-bold" id="foodName">About us</h1>
-                            <div class="table-responsive rounded overflow-auto">
-                                <table class="table shadow table-light text-center rounded">
-                                    <thead class="table-dark">
-                                        <tr>
-                                            <th scope="col">Calories</th>
-                                            <th scope="col">Protein</th>
-                                            <th scope="col">Carbs</th>
-                                            <th scope="col">Fats</th>
-                                            <th scope="col">Vitamins</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="fw-bold">
-                                            <td id="Calories"></td>
-                                            <td id="Protein"></td>
-                                            <td id="Carbs"></td>
-                                            <td id="Fats"></td>
-                                            <td id="Vitamins"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+            <div class="row shadow bg-light">
+                @foreach ($categories as $category)
+                    <div class="col-sm-4 mb-4">
+                        <a href="{{ route('food.type', $category->name) }}">
+                            <div class="card position-relative text-center">
+                                <div>
+                                    <img src="{{ asset("images/logo.png") }}" alt="image"
+                                    class="img-fluid object-cover object-center w-50 h-50">
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title fw-bold">{{ $category->name }}</h4>
+                                </div>
                             </div>
-
-                        </div>
+                        </a>
                     </div>
-                </div>
+                @endforeach
             </div>
         @endif
     </div>
-@endsection
-
-@section('script')
-    <script>
-        $(document).ready(function() {
-            $('.showFood').on('click', function() {
-                let id = $(this).data('id');
-
-                $.ajax({
-                    type: 'GET',
-                    url: `{{ route('food.show', '') }}/` + id,
-                    success: function(data) {
-                        $('#logoBeforeFood').fadeOut();
-                        $('#details').fadeIn(300);
-
-                        $('#foodName').text(data.name);
-                        $('#foodImage').attr('src', `{{ asset('storage') }}/${data.image}`);
-                        $('#Calories').text(data.calories);
-                        $('#Protein').text(data.protein);
-                        $('#Carbs').text(data.carbs);
-                        $('#Fats').text(data.fats);
-                        $('#Vitamins').text(data.vitamins);
-                    },
-                    error: function(xhr, status, error) {
-                        alert("Failed to load food details. Please try again.");
-                    }
-                });
-            });
-        });
-    </script>
 @endsection

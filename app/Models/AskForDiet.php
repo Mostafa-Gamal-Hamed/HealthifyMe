@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class AskForDiet extends Model
 {
-    protected $fillable = ['ask', 'user_id'];
+    protected $fillable = ['ask', 'user_id', 'accept'];
 
     // Relationship
     public function user()
     {
-        return $this->belongsTo(Diet::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

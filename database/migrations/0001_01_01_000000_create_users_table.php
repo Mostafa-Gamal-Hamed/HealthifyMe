@@ -18,14 +18,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ["user", "admin", "superAdmin"])->default("user");
+            $table->enum('role', ["user", "doctor", "admin", "superAdmin"])->default("user");
             $table->enum('status', ["active", "inactive"])->default("active");
-            $table->integer('age')->nullable();
-            $table->float('weight')->nullable();
-            $table->float('height')->nullable();
-            $table->enum('gender', ["male", "female"])->nullable();
-            $table->enum('activity_level', ['low', 'moderate', 'high'])->nullable();
-            $table->integer('workout_hours_per_week')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

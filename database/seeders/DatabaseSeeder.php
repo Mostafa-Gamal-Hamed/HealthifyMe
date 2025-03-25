@@ -16,12 +16,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
+            // DietInfoSeeder::class,
             BlogSeeder::class,
             CategorySeeder::class,
             FoodSeeder::class,
             DietSeeder::class,
             SpecialDietSeeder::class,
-            // ContactSeeder::class
+            ContactSeeder::class
         ]);
     }
 }

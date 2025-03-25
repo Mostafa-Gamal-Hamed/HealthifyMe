@@ -20,3 +20,14 @@
         });
     </script>
 @endif
+
+
+@if (session()->get('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `{{session()->get('error')}}`,
+        });
+    </script>
+@endif

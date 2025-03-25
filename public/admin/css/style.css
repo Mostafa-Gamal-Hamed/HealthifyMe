@@ -131,6 +131,14 @@
     outline: none;
 }
 
+.accountNav{
+    color: white;
+}
+.accountNav:hover{
+    color: var(--dark) !important;
+    background-color: var(--light);
+}
+
 .sidebar .navbar .navbar-nav .nav-link:hover,
 .sidebar .navbar .navbar-nav .nav-link.active {
     color: var(--dark);

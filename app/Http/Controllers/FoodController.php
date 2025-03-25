@@ -8,14 +8,20 @@ use Illuminate\Http\Request;
 
 class FoodController extends Controller
 {
-    public function index($type)
+    public function index()
+    {
+        $categories = Category::all();
+        return view("user.food.index", compact("categories"));
+    }
+
+    public function type($type)
     {
         $category = Category::where("name", $type)->first();
         $foods    = Food::where("category_id", $category->id)->get();
 
         $color = ['danger', 'dark', 'warning', 'success'];
 
-        return view("user.food.index", compact("category", "foods", "color"));
+        return view("user.food.show", compact("category", "foods", "color"));
     }
 
     public function show(string $id)
@@ -31,6 +37,7 @@ class FoodController extends Controller
             "carbs"    => $food->carbs,
             "fats"     => $food->fats,
             "vitamins" => $food->vitamins,
+            "fiber"    => $food->fiber,
         ]);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DietInfoRequest;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\DietInfo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +37,29 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function dietUpdate(DietInfoRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        DietInfo::updateOrCreate(
+            ['user_id' => Auth::id()],
+            [
+                'age'                    => $data['age'],
+                'weight'                 => $data['weight'],
+                'height'                 => $data['height'],
+                'gender'                 => $data['gender'],
+                'activity_level'         => $data['activity_level'],
+                'workout_hours_per_week' => $data['workout_hours_per_week'],
+            ]
+        );
+
+        return Redirect::route('profile.edit')->with('success', 'Updated successfully');
     }
 
     /**

@@ -24,12 +24,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'role',
         'status',
-        'age',
-        'weight',
-        'height',
-        'gender',
-        'activity_level',
-        'workout_hours_per_week',
     ];
 
     /**
@@ -56,6 +50,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     //Relationships
+    public function dietInfo()
+    {
+        return $this->hasOne(DietInfo::class, 'user_id');
+    }
+
     public function diets()
     {
         return $this->belongsToMany(Diet::class, 'user_diets', 'user_id', 'diet_id');

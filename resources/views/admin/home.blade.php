@@ -33,29 +33,41 @@
     <div class="mt-4">
         <h2 class="mb-4 fw-bold">Dashboard</h2>
         {{-- Counts --}}
-        <div class="row">
+        <div class="row gap-2 align-items-center justify-content-around">
             <div class="col-md-3">
                 <div class="card p-3 text-center">
                     <h5>Users</h5>
-                    <h3 class="text-danger">{{ $users ? count($users) : 'Empty' }}</h3>
+                    <h3 class="text-danger">{{ $users ? $users : 0 }}</h3>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card p-3 text-center">
                     <h5>Diets</h5>
-                    <h3 class="text-primary">{{ $diets ? count($diets) : 'Empty' }}</h3>
+                    <h3 class="text-primary">{{ $diets ? $diets : 0 }}</h3>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card p-3 text-center">
                     <h5>Special diets</h5>
-                    <h3 class="text-purple">{{ $special ? count($special) : 'Empty' }}</h3>
+                    <h3 class="text-purple">{{ $special ? $special : 0 }}</h3>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card p-3 text-center">
                     <h5>Blogs</h5>
-                    <h3 class="text-success">{{ $blogs ? count($blogs) : 'Empty' }}</h3>
+                    <h3 class="text-info">{{ $blogs ? $blogs : 0 }}</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 text-center">
+                    <h5>Request diets</h5>
+                    <h3 class="text-danger">{{ $askDiet ? $askDiet : 0 }}</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 text-center">
+                    <h5>Request a diet change</h5>
+                    <h3 class="text-success">{{ $changeDiet ? $changeDiet : 0 }}</h3>
                 </div>
             </div>
         </div>
@@ -70,7 +82,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card p-3 mb-3">
-                    <h5>Overall Performance</h5>
+                    <h5>Ask for diets</h5>
                     <h3 class="text-danger">14,000</h3>
                     <p>42% higher than last month</p>
                 </div>

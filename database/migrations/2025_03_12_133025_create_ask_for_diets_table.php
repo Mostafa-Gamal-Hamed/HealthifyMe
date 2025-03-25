@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('ask', ['ask', 'change']);
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->boolean('accept')->default(0);
             $table->timestamps();
         });
     }

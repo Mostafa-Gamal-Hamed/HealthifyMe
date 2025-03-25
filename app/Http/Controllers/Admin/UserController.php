@@ -22,54 +22,53 @@ class UserController extends Controller
 
     public function show(string $id)
     {
-        $user  = User::findOrFail($id);
-        $diets = Diet::all();
+        $user      = User::findOrFail($id);
+        $dietInfo  = $user->dietInfo;
+        $diets     = Diet::all();
 
-        return view("admin.user.show", compact("user", "diets"));
+        // BMR
+        $bmr = null;
+        if ($dietInfo) {
+            $bmr = match ($dietInfo->gender) {
+                'male'   => (10 * $dietInfo->weight) + (6.25 * $dietInfo->height) - (5 * $dietInfo->age) + 5,
+                'female' => (10 * $dietInfo->weight) + (6.25 * $dietInfo->height) - (5 * $dietInfo->age) - 161,
+                default  => null,
+            };
+        }
+
+        // TDEE
+        $activity_levels = [
+            'low'          => 1.2,
+            'moderate'     => 1.375,
+            'high'         => 1.725,
+            'professional' => 1.9,
+        ];
+
+        $tdee = $bmr ? ($bmr * ($activity_levels[$user->activity_level] ?? 1.2)) : null;
+
+        $lose_05kg  = $tdee ? $tdee - 500 : null;
+        $lose_1kg   = $tdee ? $tdee - 1000 : null;
+        $lose_1_5kg = $tdee ? $tdee - 1500 : null;
+
+        return view("admin.user.show", compact("user", "dietInfo", "diets", "bmr", "tdee", "lose_05kg", "lose_1kg", "lose_1_5kg"));
     }
 
     public function status(string $type, $id)
     {
-        $user = User::findOrFail($id);
+        $user         = User::findOrFail($id);
+        $askForDiet   = $user->askForDiet;
         $user->status = $type;
         $user->save();
 
-        return redirect()->back()->with('success', 'User status updated successfully');
-    }
-
-    public function userDiet(Request $request)
-    {
-        // Validate
-        $data = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'diet_id' => 'required|exists:diets,id',
-        ]);
-
-        UserDiet::create($data);
-
-        return redirect()->back()->with('success', 'Diet selected successfully');
-    }
-
-    public function userSpecialDiet(DietRequest $request, string $id)
-    {
-        $user = User::findOrFail($id);
-
-        $diet = new SpecialDiet();
-        $diet->fill($request->validated());
-        $diet->user_id = $user->id;
-
-        // Store images and encode their paths as JSON
-        $imgArray = [];
-        if ($request->hasFile('images')) {
-            foreach ($diet->images as $image) {
-                $imgArray[] = Storage::putFile("diets", $image);
+        if ($type === "active") {
+            foreach ($askForDiet as $askForDiet) {
+                if ($askForDiet->ask === 'ask') {
+                    $askForDiet->delete();
+                }
             }
-            $diet->images = json_encode($imgArray);
         }
 
-        $diet->save();
-
-        return redirect()->back()->with('success', 'Diet Created successfully');
+        return redirect()->back()->with('success', 'User status updated successfully');
     }
 
     public function destroy(string $id)
@@ -88,7 +87,7 @@ class UserController extends Controller
             'firstName',
             'lastName',
             'email',
-            ], 'like', "%{$search}%")->get();
+        ], 'like', "%{$search}%")->get();
 
         return response()->json(['users' => $users]);
     }

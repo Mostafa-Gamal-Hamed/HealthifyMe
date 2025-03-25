@@ -143,8 +143,8 @@
 
                                 var sender = `${email.user.firstName} ${email.user.lastName}`;
 
-                                var show   = `{{ url('admin.sentMessage.show', '') }}/${email.id}`;
-                                var remove = `{{ url('admin.sentMessage.delete', '') }}/${email.id}`;
+                                var show   = `{{ route('admin.sentMessage.show', '') }}/${email.id}`;
+                                var remove = `{{ route('admin.sentMessage.delete', '') }}/${email.id}`;
 
                                 body.append(`
                                     <tr>

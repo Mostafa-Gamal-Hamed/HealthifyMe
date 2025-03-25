@@ -19,7 +19,7 @@
         </div>
 
         <div class="navbar-nav w-100">
-            <a href="home"
+            <a href="{{ url('/') }}"
                 class="nav-item nav-link {{ request()->is('/') || request()->is('home') ? 'text-dark active' : '' }}">
                 <i class="fa fa-tachometer-alt me-2"></i>Dashboard
             </a>
@@ -27,15 +27,19 @@
             {{-- Users --}}
             <div class="nav-item dropdown mt-2">
                 <a href="#"
-                    class="nav-link {{ request()->routeIs('admin.user.users') || request()->routeIs('admin.user.diet') ? 'text-dark active show' : '' }}"
+                    class="nav-link {{ request()->routeIs('admin.user.users') || request()->routeIs('admin.dietRequests.diets') ? 'text-dark active show' : '' }}"
                     data-bs-toggle="dropdown">
                     <i class="fa fa-users me-2"></i> Users
                 </a>
                 <div
-                    class="dropdown-menu bg-transparent border-0 {{ request()->routeIs('admin.user.users') || request()->routeIs('admin.user.show') ? 'show' : '' }}">
+                    class="dropdown-menu bg-transparent border-0 {{ request()->routeIs('admin.user.users') || request()->routeIs('admin.user.show')
+                    || request()->routeIs('admin.dietRequests.diets') || request()->routeIs('admin.dietRequests.show') ? 'show' : '' }}">
                     <a href="{{ route('admin.user.users') }}"
-                        class="dropdown-item {{ request()->routeIs('admin.user.users') ? 'active' : '' }}"><i
-                            class="fa-solid fa-table-list text-info"></i> All users</a>
+                        class="dropdown-item {{ request()->routeIs('admin.user.users') ? 'active' : '' }}">
+                        <i class="fa-solid fa-table-list text-info"></i> All users</a>
+                    <a href="{{ route('admin.dietRequests.diets') }}"
+                        class="dropdown-item {{ request()->routeIs('admin.dietRequests.diets') ? 'active' : '' }}">
+                        <i class="fa-solid fa-hand-point-up text-danger"></i> Diet requests</a>
                 </div>
             </div>
 
@@ -124,14 +128,21 @@
             {{-- Contact --}}
             <div class="nav-item dropdown mt-2">
                 <a href="#"
-                    class="nav-link {{ request()->routeIs('admin.contact.contacts') || request()->routeIs('admin.contact.show')
-                    || request()->routeIs('admin.sentMessage.sentMessages') ? 'text-dark active show' : '' }}"
+                    class="nav-link {{ request()->routeIs('admin.contact.contacts') ||
+                    request()->routeIs('admin.contact.show') ||
+                    request()->routeIs('admin.sentMessage.sentMessages')
+                        ? 'text-dark active show'
+                        : '' }}"
                     data-bs-toggle="dropdown">
                     <i class="fa fa-message me-2"></i> Messages
                 </a>
                 <div
-                    class="dropdown-menu bg-transparent border-0 {{ request()->routeIs('admin.contact.contacts') || request()->routeIs('admin.contact.show')
-                    || request()->routeIs('admin.sentMessage.sentMessages') || request()->routeIs('admin.sentMessage.show') ? 'show' : '' }}">
+                    class="dropdown-menu bg-transparent border-0 {{ request()->routeIs('admin.contact.contacts') ||
+                    request()->routeIs('admin.contact.show') ||
+                    request()->routeIs('admin.sentMessage.sentMessages') ||
+                    request()->routeIs('admin.sentMessage.show')
+                        ? 'show'
+                        : '' }}">
 
                     <a href="{{ route('admin.contact.contacts') }}"
                         class="dropdown-item {{ request()->routeIs('admin.contact.contacts') ? 'active' : '' }}">
