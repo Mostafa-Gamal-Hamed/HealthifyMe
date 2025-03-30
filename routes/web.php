@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\DietController;
 use App\Http\Controllers\Admin\DietRequestController;
 use App\Http\Controllers\Admin\FoodController as AdminFoodController;
+use App\Http\Controllers\Admin\RecipeController;
 use App\Http\Controllers\Admin\SpecialDietController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserDietsController;
@@ -57,24 +58,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-// Email verification
-Route::get('email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+// Email Verification Routes
+Route::group(['middleware' => 'auth'], function () {
+    // Email Verification Notice
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->name('verification.notice');
 
-// The Email Verification Handler
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+    // Email Verification Handler
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect('/home');
+    })->middleware('signed')->name('verification.verify');
 
-// Resending
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
+    // Resend Email Verification Notification
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
 
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
+        return back()->with('message', 'Verification link sent!');
+    })->middleware('throttle:6,1')->name('verification.send');
+});
 require __DIR__ . '/auth.php';
 
 
@@ -262,6 +265,28 @@ Route::middleware(IsAdmin::class)->group(function () {
         Route::delete('secondDeleteFood/{id}', 'secondDestroy')->name("admin.food.secondDelete");
         // Search
         Route::get('foodSearch/{search}', 'search')->name("admin.food.search");
+    });
+
+    // Recipes
+    Route::controller(RecipeController::class)->group(function () {
+        // All recipes
+        Route::get('recipes', 'index')->name("admin.recipe.recipes");
+        // Show
+        Route::get('showRecipe/{id}', 'show')->name("admin.recipe.show");
+        // Edit
+        Route::get('editRecipe/{id}', 'edit')->name("admin.recipe.edit");
+        // Update
+        Route::put('updateRecipe/{id}', 'update')->name("admin.recipe.update");
+        // Create
+        Route::get('createRecipe', 'create')->name("admin.recipe.create");
+        // Store
+        Route::post('storeRecipe', 'store')->name("admin.recipe.store");
+        // Delete
+        Route::delete('deleteRecipe/{id}', 'destroy')->name("admin.recipe.delete");
+        // Second delete
+        Route::delete('secondDeleteRecipe/{id}', 'secondDestroy')->name("admin.recipe.secondDelete");
+        // Search
+        Route::get('recipeSearch/{search}', 'search')->name("admin.recipe.search");
     });
 
     // Contact

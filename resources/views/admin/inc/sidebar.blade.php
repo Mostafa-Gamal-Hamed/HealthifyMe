@@ -154,6 +154,24 @@
                     </a>
                 </div>
             </div>
+            {{-- Diets --}}
+            <div class="nav-item dropdown mt-2">
+                <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                    <i class="fa-solid fa-utensils"></i> Recipes
+                </a>
+                <div
+                    class="dropdown-menu bg-transparent border-0 {{ request()->routeIs('admin.recipe.recipes') ||
+                    request()->routeIs('admin.recipe.create') || request()->routeIs('admin.recipe.edit')
+                        ? 'show'
+                        : '' }}">
+                    <a href="{{ route('admin.recipe.recipes') }}"
+                        class="dropdown-item {{ request()->routeIs('admin.recipe.recipes') ? 'active' : '' }}">
+                        <i class="fa-solid fa-wheat-awn-circle-exclamation text-info"></i> All Recipes</a>
+                    <a href="{{ route('admin.recipe.create') }}"
+                        class="dropdown-item {{ request()->routeIs('admin.recipe.create') ? 'active' : '' }}">
+                        <i class="fa-solid fa-plus text-warning"></i> Add new recipe</a>
+                </div>
+            </div>
         </div>
     </nav>
 </div>

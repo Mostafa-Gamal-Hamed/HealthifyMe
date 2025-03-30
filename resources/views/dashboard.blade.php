@@ -24,18 +24,18 @@
                             </span>
                         </p>
 
-                        @if ($user->status === 'inactive')
-                        <form action="{{ route('ask-for-diet.store') }}" method="post" class="text-end">
-                            @csrf
-                            <button type="submit" class="btn btn-sm btn-success px-4">Activation request</button>
-                        </form>
+                        @if (!$dietInfo)
+                            <p class="text-info">Please update your data.</p>
+                        @elseif ($user->status === 'inactive')
+                            <form action="{{ route('ask-for-diet.store') }}" method="post" class="text-end">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-success px-4">Activation request</button>
+                            </form>
                         @elseif ($user->diets->isNotEmpty() || $user->specialDiet)
                             <form action="{{ route('change-diet.store') }}" method="post" class="text-end">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-info px-3">Change diet plane</button>
                             </form>
-                        @elseif (!$dietInfo)
-                        <p class="text-info">Please update your data.</p>
                         @else
                             <p class="text-muted">Wait for your diet to be created.</p>
                         @endif
