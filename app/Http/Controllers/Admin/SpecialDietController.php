@@ -8,6 +8,7 @@ use App\Models\SpecialDiet;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SpecialDietController extends Controller
 {
@@ -101,8 +102,7 @@ class SpecialDietController extends Controller
         $diets = SpecialDiet::where('name', 'like', "%{$search}%")
         ->orWhereHas('user', function ($query) use ($search) {
             $query->where('firstName', 'like', "%{$search}%");
-        })
-        ->get();
+        })->get();
 
         return response()->json(['diets' => $diets]);
     }

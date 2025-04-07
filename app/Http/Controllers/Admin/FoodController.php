@@ -97,13 +97,6 @@ class FoodController extends Controller
         return redirect()->back()->with("success", "Food deleted successfully");
     }
 
-    public function search(string $search)
-    {
-        $food = Food::whereLike('name', "%$search%")->first();
-
-        return response()->json(['food' => $food]);
-    }
-
     public function secondDestroy(string $id)
     {
         $food = Food::findOrFail($id);
@@ -115,5 +108,12 @@ class FoodController extends Controller
         $food->delete();
 
         return redirect()->route("admin.food.foods")->with("success", "Food deleted successfully");
+    }
+
+    public function search(string $search)
+    {
+        $food = Food::whereLike('name', "%$search%")->with('category')->first();
+
+        return response()->json(['food' => $food]);
     }
 }

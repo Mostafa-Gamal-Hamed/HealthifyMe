@@ -42,7 +42,7 @@
                                     <td>{{ $blog->slug }}</td>
                                     <td>
                                         <span data-featherlight="<p>{{ $blog->desc }}</p>" style="cursor: pointer;">
-                                            {{ Str::limit($blog->desc, 30, '...') }}
+                                            {!! Str::limit($blog->desc, 40, '...') !!}
                                         </span>
                                     </td>
                                     <td>
@@ -111,8 +111,9 @@
                             var created_at = new Date(blog.created_at);
                             var createdAt = created_at.toLocaleDateString('en-GB');
 
+                            var data = `data-featherlight='<p>${blog.desc}</p>'`;
                             var description = `
-                                <span data-featherlight="<p>${blog.desc}</p>" style="cursor: pointer;">
+                                <span ${data} style="cursor: pointer;">
                                     ${blog.desc.length > 50 ? blog.desc.substring(0, 50) + '....' : blog.desc}
                                 </span>
                             `;
@@ -136,7 +137,7 @@
                                     <td>${image}</td>
                                     <td>${createdAt}</td>
                                     <td>
-                                        <a href="${show}" class="btn btn-md btn-success">
+                                        <a href="${show}" class="btn btn-md btn-info">
                                             <i class="fa-solid fa-info"></i></i>
                                         </a>
                                     </td>

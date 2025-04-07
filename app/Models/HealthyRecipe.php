@@ -10,9 +10,8 @@ class HealthyRecipe extends Model
         'title',
         'description',
         'calories',
-        'image',
+        'images',
         'video',
-        'status',
         'user_id'
     ];
 

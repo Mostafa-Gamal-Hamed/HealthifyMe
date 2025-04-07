@@ -40,7 +40,6 @@
 
                         {{-- Description --}}
                         <div class="mb-3">
-                            <label for="description">Description:</label>
                             <textarea name="desc" class="form-control @error('desc') is-invalid @enderror"
                                 placeholder="Write description" id="desc" style="height: 100px">{{ $blog->desc }}</textarea>
                             @error('desc')
@@ -78,4 +77,28 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.6.1/tinymce.min.js"
+        integrity="sha512-bib7srucEhHYYWglYvGY+EQb0JAAW0qSOXpkPTMgCgW8eLtswHA/K4TKyD4+FiXcRHcy8z7boYxk0HTACCTFMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#desc',
+            plugins: 'autoresize link image lists table code fullscreen',
+            toolbar: "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | forecolor backcolor removeformat | table media | lineheight outdent indent | charmap emoticons | code fullscreen preview | pagebreak anchor codesample | ltr rtl",
+            height: 200,
+            menubar: false,
+            toolbar_sticky: true,
+            branding: false,
+            content_style: 'body { font-family:Arial, sans-serif; font-size:14px; }',
+            setup: function(editor) {
+                editor.on('change', function() {
+                    editor.save();
+                });
+            },
+        });
+    </script>
 @endsection

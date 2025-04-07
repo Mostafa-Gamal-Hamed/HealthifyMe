@@ -104,9 +104,10 @@
                                     var created_at = new Date(diet.created_at);
                                     var createdAt  = created_at.toLocaleDateString('en-GB');
 
+                                    var data = `data-featherlight='<p>${diet.description}</p>'`;
                                     var description = `
-                                        <span data-featherlight="<p>${diet.description}</p>" style="cursor: pointer;">
-                                            {{ Str::limit($diet->description, 50, '....') }}
+                                        <span ${data} style="cursor: pointer;">
+                                            ${diet.description.length > 50 ? diet.description.substring(0, 50) + '....' : diet.description}
                                         </span>
                                     `;
 

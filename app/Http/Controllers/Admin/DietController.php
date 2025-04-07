@@ -7,6 +7,8 @@ use App\Http\Requests\DietRequest;
 use App\Models\Diet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class DietController extends Controller
 {
@@ -100,8 +102,7 @@ class DietController extends Controller
     public function search(string $search)
     {
         $diets = Diet::where('name', 'like', "%{$search}%")
-        ->orWhere('calories', 'like', "%{$search}%")
-        ->get();
+        ->orWhere('calories', 'like', "%{$search}%")->get();
 
         return response()->json(['diets' => $diets]);
     }

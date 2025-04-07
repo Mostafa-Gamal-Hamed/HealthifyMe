@@ -15,7 +15,7 @@ class BlogSeeder extends Seeder
                 'title' => 'Blog Post ' . $i,
                 'slug'  => uniqid(),
                 'image' => 'blogs/blog.jpg',
-                'desc'  => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla
+                'desc'  => $i . 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla
                     auctor, vestibulum magna sed, convallis ex. Cum sociis natoque p
                     odium estibulum at ligula. Donec malesuada orci a ex blandit
                     rhoncus. Ut et nulla auctor, vestibulum magna sed, convallis ex.

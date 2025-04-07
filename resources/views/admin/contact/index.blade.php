@@ -125,53 +125,60 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('admin.sentMessage.search', '') }}/" + value,
+                    url: "{{ route('admin.contact.search', '') }}/" + value,
                     success: function(response) {
-                        if (response.emails && response.emails.length > 0) {
+                        console.log(response.email);
+                        if (response.email && response.email.length != 0) {
                             var body  = $('#showTable').find('tbody');
                             body.empty();
 
-                            response.emails.forEach(function(email) {
-                                var created_at = new Date(email.created_at);
-                                var createdAt = created_at.toLocaleDateString('en-GB');
+                            var email = response.email;
+                            var created_at = new Date(email.created_at);
+                            var createdAt  = created_at.toLocaleDateString('en-GB');
 
-                                var message = `
-                                    <span data-featherlight="<p>${email.message}</p>" style="cursor: pointer;">
-                                        ${email.message.length > 50 ? email.message.substring(0, 50) + '....' : email.message}
-                                    </span>
-                                `;
+                            if (email.status === 'unread') {
+                                var status = `<span class="badge bg-warning text-dark">${email.status}</span>`;
+                                var table  = `class="table-warning"`;
+                            } else {
+                                var status = `<span class="badge bg-secondary">${email.status}</span>`;
+                                var table  = '';
+                            }
 
-                                var sender = `${email.user.firstName} ${email.user.lastName}`;
+                            var message = `
+                                <span data-featherlight="<p>${email.message}</p>" style="cursor: pointer;">
+                                    ${email.message.length > 50 ? email.message.substring(0, 50) + '....' : email.message}
+                                </span>
+                            `;
 
-                                var show   = `{{ route('admin.sentMessage.show', '') }}/${email.id}`;
-                                var remove = `{{ route('admin.sentMessage.delete', '') }}/${email.id}`;
+                            var show   = `{{ route('admin.sentMessage.show', '') }}/${email.id}`;
+                            var remove = `{{ route('admin.sentMessage.delete', '') }}/${email.id}`;
 
-                                body.append(`
-                                    <tr>
-                                        <td>${email.id}</td>
-                                        <td>${email.email}</td>
-                                        <td>${message}</td>
-                                        <td>${sender}</td>
-                                        <td>${email.contact_id}</td>
-                                        <td>${createdAt}</td>
-                                        <td>
-                                            <a href="${show}" class="btn btn-md btn-success">
-                                                <i class="fa-solid fa-info"></i></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <form action="${remove}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-md"
-                                                    onclick="return confirm('Are you sure?');">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                `);
-                            });
+                            body.append(`
+                                <tr ${table}>
+                                    <td>${email.id}</td>
+                                    <td>${email.name}</td>
+                                    <td>${email.email}</td>
+                                    <td>${email.subject}</td>
+                                    <td>${message}</td>
+                                    <td>${status}</td>
+                                    <td>${createdAt}</td>
+                                    <td>
+                                        <a href="${show}" class="btn btn-md btn-success">
+                                            <i class="fa-solid fa-info"></i></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form action="${remove}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-md"
+                                                onclick="return confirm('Are you sure?');">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            `);
 
                         } else {
                             $('#showTable tbody').html(

@@ -125,8 +125,8 @@
                                     <tr>
                                         <td scope="row">${food.id}</td>
                                         <td>${food.name}</td>
+                                        <td>${food.category.name}</td>
                                         <td>${image}</td>
-                                        <td>${food.category}</td>
                                         <td>${createdAt}</td>
                                         <td>${updatedAt}</td>
                                         <td>

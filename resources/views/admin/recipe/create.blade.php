@@ -30,7 +30,7 @@
                         {{-- Description --}}
                         <div class="form-floating mb-3">
                             <textarea name="description" class="form-control @error('description') is-invalid @enderror"
-                                placeholder="Recipe Description" id="description" style="height: 150px" required>{{ old('description') }}</textarea>
+                                placeholder="Recipe Description" id="description" required>{{ old('description') }}</textarea>
                             @error('description')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -51,7 +51,7 @@
                         <div class="mb-3">
                             <label for="video">Video (MP4 only)</label>
                             <input type="file" name="video" class="form-control @error('video') is-invalid @enderror"
-                                value="{{ old('video') }}" id="video" accept=".mp4" required>
+                                value="{{ old('video') }}" id="video" accept=".mp4">
                             @error('video')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -61,8 +61,7 @@
                         <div class="mb-3">
                             <label for="images">Images (JPG, JPEG, PNG, GIF)</label>
                             <input type="file" name="images[]" class="form-control @error('images') is-invalid @enderror"
-                                value="{{ old('images') }}" id="images" multiple accept=".jpg, .jpeg, .png, .gif"
-                                required>
+                                value="{{ old('images') }}" id="images" multiple accept=".jpg, .jpeg, .png, .gif">
                             @error('images')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -87,8 +86,8 @@
         tinymce.init({
             selector: '#description',
             plugins: 'autoresize link image lists table code fullscreen',
-            toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | table | code | fullscreen',
-            height: 400,
+            toolbar: "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | forecolor backcolor removeformat | table media | lineheight outdent indent | charmap emoticons | code fullscreen preview | pagebreak anchor codesample | ltr rtl",
+            height: 200,
             menubar: false,
             toolbar_sticky: true,
             branding: false,
@@ -98,8 +97,6 @@
                     editor.save();
                 });
             },
-            file_picker_types: 'image',
-            images_upload_url: '/upload_image',
         });
     </script>
 @endsection

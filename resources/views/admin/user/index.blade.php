@@ -117,15 +117,17 @@
                                 'en-GB');
 
                                 if (user.status === 'active') {
-                                    var status = `<a href="{{ route('admin.user.status', ['type' => 'inactive', 'id' => $user->id]) }}"
-                                    class='badge bg-success' onclick="return confirm('Change to inactive?');">
-                                    ${user.status}
-                                </a>`;
+                                    var status = `<a href="{{ route('admin.user.status', ['type' => 'inactive', 'id' => '__userId__']) }}"
+                                        class='badge bg-success' onclick="return confirm('Change to inactive?');">
+                                        ${user.status}
+                                    </a>`;
+                                    status = status.replace('__userId__', user.id);
                                 } else {
-                                    var status = `<a href="{{ route('admin.user.status', ['type' => 'active', 'id' => $user->id]) }}"
-                                    class='badge bg-danger' onclick="return confirm('Change to active?');">
-                                    ${user.status}
-                                </span>`;
+                                    var status = `<a href="{{ route('admin.user.status', ['type' => 'active', 'id' => '__userId__']) }}"
+                                        class='badge bg-danger' onclick="return confirm('Change to active?');">
+                                        ${user.status}
+                                    </a>`;
+                                    status = status.replace('__userId__', user.id);
                                 }
 
                                 var show   = `{{ route('admin.user.show', '') }}/${user.id}`;

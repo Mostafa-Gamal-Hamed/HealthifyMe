@@ -16,9 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->integer('calories')->nullable();
-            $table->string('image')->nullable();
+            $table->string('images')->nullable();
             $table->string('video')->nullable();
-            $table->enum('status', ['like', 'dislike'])->nullable();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

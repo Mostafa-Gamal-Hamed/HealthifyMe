@@ -41,6 +41,13 @@ class ContactController extends Controller
         //
     }
 
+    public function search(string $search)
+    {
+        $email = Contact::where('email', 'like', "%{$search}%")->first();
+
+        return response()->json(['email' => $email]);
+    }
+
 
     // Reply message
     public function allSent()

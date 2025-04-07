@@ -7,6 +7,10 @@
 @section('body')
     <div class="p-3">
         <h2 class="text-center mb-3 text-success fw-bold">All recipes</h2>
+
+        {{-- Message --}}
+        @include('admin.success')
+
         <div class="shadow shadow-lg bg-light rounded h-100 mb-5">
             @if ($recipes->isEmpty())
                 <h3 class="mb-5 text-center text-danger">No recipes found.</h3>
@@ -38,22 +42,20 @@
                                     <td scope="row">{{ $recipe->id }}</td>
                                     <td>{{ $recipe->title }}</td>
                                     <td>
-                                        <span data-featherlight="<p>{{ $recipe->description }}</p>" style="cursor: pointer;">
-                                            {{ Str::limit($recipe->description, 50, '....') }}
+                                        <span class="text" data-featherlight="<p>{{ $recipe->description }}</p>"
+                                            style="cursor: pointer;">
+                                            {!! Str::limit($recipe->description, 250, '....') !!}
                                         </span>
                                     </td>
                                     <td>{{ $recipe->calories }}</td>
                                     <td>{{ $recipe->status }}</td>
                                     <td>{{ $recipe->created_at->format('d-m-Y') }}</td>
                                     <td>
-                                        {{-- <a href="{{ url('admin.recipe.edit', $recipe->id) }}" class="btn btn-md btn-success">
-                                            <i class="fa-solid fa-edit"></i>
-                                        </a> --}}
                                         <x-EditShow url="{{ route('admin.recipe.show', $recipe->id) }}" class="info"
                                             title="Details" text="<i class='fa-solid fa-info'></i>"></x-EditShow>
                                     </td>
                                     <td>
-                                        <form action="{{ url('admin.recipe.delete', $recipe->id) }}" method="POST">
+                                        <form action="{{ route('admin.recipe.delete', $recipe->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-md"
@@ -99,16 +101,21 @@
 
                                 response.recipes.forEach(function(recipe) {
                                     var created_at = new Date(recipe.created_at);
-                                    var createdAt  = created_at.toLocaleDateString('en-GB');
+                                    var createdAt = created_at.toLocaleDateString('en-GB');
 
+                                    var data = `data-featherlight='<p>${recipe.description}</p>'`;
                                     var description = `
-                                        <span data-featherlight="<p>${recipe.description}</p>" style="cursor: pointer;">
-                                            {{ Str::limit($recipe->description, 50, '....') }}
+                                        <span class="text" ${data} style="cursor: pointer;">
+                                            ${recipe.description.length > 50 ? recipe.description.substring(0, 50) + '....' : recipe.description}
                                         </span>
                                     `;
 
-                                    var show   = `{{ route('admin.recipe.show', '') }}/${recipe.id}`;
-                                    var remove = `{{ route('admin.recipe.delete', '') }}/${recipe.id}`;
+                                    var status = recipe.status || " ";
+
+                                    var show =
+                                        `{{ route('admin.recipe.show', '') }}/${recipe.id}`;
+                                    var remove =
+                                        `{{ route('admin.recipe.delete', '') }}/${recipe.id}`;
 
                                     body.append(`
                                         <tr>
@@ -116,7 +123,7 @@
                                             <td>${recipe.title}</td>
                                             <td>${description}</td>
                                             <td>${recipe.calories}</td>
-                                            <td>${recipe.status}</td>
+                                            <td>${status}</td>
                                             <td>${createdAt}</td>
                                             <td>
                                                 <x-EditShow url="${show}" class="info"

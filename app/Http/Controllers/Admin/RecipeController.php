@@ -7,6 +7,10 @@ use App\Http\Requests\RecipeRequest;
 use App\Models\HealthyRecipe;
 use App\Models\RecipeLike;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class RecipeController extends Controller
 {
@@ -25,25 +29,30 @@ class RecipeController extends Controller
     {
         $validated = $request->validated();
 
-        $recipe = Recipe::create([
-            'title' => $validated['title'],
+        $video = null;
+        if ($request->hasFile('video')) {
+            $video = $request->file('video')->store('recipes', 'public');
+        }
+
+        $images = null;
+        if ($request->hasFile('images')) {
+            $imgArray = [];
+            foreach ($request->file('images') as $image) {
+                $imgArray[] = $image->store('recipes', 'public');
+            }
+            $images = json_encode($imgArray);
+        }
+
+        HealthyRecipe::create([
+            'title'       => $validated['title'],
             'description' => $validated['description'],
-            'calories' => $validated['calories'],
+            'calories'    => $validated['calories'],
+            'images'      => $images,
+            'video'       => $video,
+            'user_id'     => Auth::id(),
         ]);
 
-        if ($request->hasFile('video')) {
-            $videoPath = $request->file('video')->store('videos', 'public');
-            $recipe->video = $videoPath;
-        }
-
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $imagePath = $image->store('images', 'public');
-                $recipe->images()->create(['path' => $imagePath]);
-            }
-        }
-
-        return redirect()->route('admin.recipe.index')->with('success', 'Recipe created successfully!');
+        return redirect()->back()->with('success', 'Recipe created successfully!');
     }
 
     public function show(string $id)
@@ -55,28 +64,88 @@ class RecipeController extends Controller
         return view("admin.recipe.show", compact("recipe", "likes", "disLikes"));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $recipe = HealthyRecipe::findOrFail($id);
+        return view("admin.recipe.edit", compact("recipe"));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(RecipeRequest $request, string $id)
     {
-        //
+        $recipe    = HealthyRecipe::findOrFail($id);
+        $validated = $request->validated();
+
+        $video = $recipe->video;
+        if ($request->hasFile('video')) {
+            if ($recipe->video) {
+                Storage::disk('public')->delete($recipe->video);
+            }
+            $video = $request->file('video')->store('recipes', 'public');
+        }
+
+        $images = $recipe->images;
+        if ($request->hasFile('images')) {
+            if ($recipe->images) {
+                $oldImages = json_decode($recipe->images);
+                foreach ($oldImages as $oldImage) {
+                    Storage::disk('public')->delete($oldImage);
+                }
+            }
+            $imgArray = [];
+            foreach ($request->file('images') as $image) {
+                $imgArray[] = $image->store('recipes', 'public');
+            }
+            $images = json_encode($imgArray);
+        }
+
+        $recipe->update([
+            'title'       => $validated['title'],
+            'description' => $validated['description'],
+            'calories'    => $validated['calories'],
+            'images'      => $images,
+            'video'       => $video,
+            'user_id'     => Auth::id(),
+        ]);
+
+        return redirect()->back()->with('success', 'Recipe created successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $recipe = HealthyRecipe::findOrFail($id);
+
+        if ($recipe->video) {
+            Storage::disk('public')->delete($recipe->video);
+        }
+        if ($recipe->images) {
+            $oldImages = json_decode($recipe->images);
+            foreach ($oldImages as $oldImage) {
+                Storage::disk('public')->delete($oldImage);
+            }
+        }
+
+        $recipe->delete();
+
+        return redirect()->back()->with('success', 'Recipe deleted successfully!');
+    }
+
+    public function secondDestroy(string $id)
+    {
+        $recipe = HealthyRecipe::findOrFail($id);
+
+        if ($recipe->video) {
+            Storage::disk('public')->delete($recipe->video);
+        }
+        if ($recipe->images) {
+            $oldImages = json_decode($recipe->images);
+            foreach ($oldImages as $oldImage) {
+                Storage::disk('public')->delete($oldImage);
+            }
+        }
+
+        $recipe->delete();
+
+        return redirect()->route("admin.recipe.recipes")->with('success', 'Recipe deleted successfully!');
     }
 
     public function search(string $search)

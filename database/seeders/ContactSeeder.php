@@ -17,7 +17,7 @@ class ContactSeeder extends Seeder
                 'name'    => Str::random(4) . $i,
                 'email'   => Str::random(6) . '.' . $i . '@example.com',
                 'subject' => Str::random(10),
-                'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                'message' => $i . 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                 'status'  => $status[array_rand($status)],
             ]);
         }
