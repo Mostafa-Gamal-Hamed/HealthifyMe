@@ -1,7 +1,14 @@
 @extends('user.layout')
 
+@section('meta')
+    <meta name="keywords"
+        content="health blog, nutrition tips, healthy lifestyle, weight loss advice, wellness articles, fitness blog">
+    <meta name="description"
+        content="Read expert articles, tips, and insights on healthy living, nutrition, weight loss, and fitness. Stay informed and inspired on your health journey.">
+@endsection
+
 @section('title')
-    Blogs
+    Blogs | HealthifyMe
 @endsection
 
 @section('body')
@@ -17,7 +24,7 @@
                         class="card-img-top" alt="Blog">
                     <div class="card-body">
                         <h5 class="card-title text-center"><strong>{{ $blog->title }}</strong></h5>
-                        <p class="text-end text-muted p-0">{{ $blog->created_at }}</p>
+                        <p class="text-end text-muted p-0">{{ $blog->created_at->diffForHumans() }}</p>
                         <p class="card-text mb-2">{!! Str::limit($blog->desc, 100) !!}</p>
                         <a href="{{ route('blog.show', $blog->id) }}" class="btn btn-outline-success px-5">Read</a>
                     </div>
@@ -36,44 +43,77 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            var offset = {{ count($blogs) }};
-            var limit = 9;
+            const limit = 9;
+            let offset  = {{ count($blogs) }};
 
-            $('#moreBlogs').click(function() {
+            const $moreButton  = $('#moreBlogs');
+            const $container   = $('#blogsContainer');
+            const baseUrl      = "{{ route('blog.blogs') }}";
+            const defaultImage = "{{ asset('images/modern_logo.png') }}";
+            const imagesPath   = "{{ asset('images') }}/";
+            const showRoute    = "{{ route('blog.show', '') }}";
+
+            $moreButton.on('click', function() {
+                const $button = $(this);
+                $button.prop('disabled', true)
+                    .html(
+                        '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Loading...'
+                        );
+
                 $.ajax({
-                    url: "{{ route('blog.blogs') }}",
+                    url: baseUrl,
                     type: 'GET',
+                    dataType: 'json',
                     data: {
                         offset: offset,
                         limit: limit
                     },
                     success: function(response) {
-                        if (response.blogs.length > 0) {
-                            var blogsHtml = '';
-                            $.each(response.blogs, function(index, blog) {
-                                blogsHtml += `
-                                <div class="card col-3" style="width: 18rem;">
-                                    <img src="${blog.image ? '{{ asset('images') }}/' + blog.image : '{{ asset('images/home_food.png') }}'}"
-                                        class="card-img-top" alt="Blog">
-                                    <div class="card-body">
-                                        <h5 class="card-title text-center"><strong>${blog.title}</strong></h5>
-                                        <p class="text-end text-muted p-0">${blog.created_at}</p>
-                                        <p class="card-text mb-2">${blog.desc.substring(0, 100)}...</p>
-                                        <a href="{{ route('blog.show', '') }}/${blog.id}" class="btn btn-outline-success px-5">Read</a>
-                                    </div>
-                                </div>
-                            `;
-                            });
+                        if (response.blogs && response.blogs.length > 0) {
+                            const blogsHtml = response.blogs.map(blog => {
+                                const imageSrc = blog.image ? imagesPath + blog.image :
+                                    defaultImage;
+                                const desc = blog.desc ? blog.desc.substring(0, 100) + (
+                                    blog.desc.length > 100 ? '...' : '') : '';
+                                const date = blog.created_at ? new Date(blog.created_at)
+                                    .toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'short',
+                                        day: 'numeric'
+                                    }) : '';
 
-                            $('#blogsContainer').append(blogsHtml);
-                            offset += limit;
+                                return `
+                                    <div class="card col-3" style="width: 18rem;">
+                                        <img src="${imageSrc}" class="card-img-top" alt="${blog.title}"
+                                            style="height: 200px; object-fit: cover;">
+                                        <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title text-center"><strong>${blog.title}</strong></h5>
+                                            <small class="text-muted text-end mb-2">${date}</small>
+                                            <div class="card-text mb-3 flex-grow-1">${desc}</div>
+                                            <a href="${showRoute}/${blog.id}"
+                                            class="btn btn-outline-success align-self-center px-4">
+                                                Read More
+                                            </a>
+                                        </div>
+                                    </div>`;
+                            }).join('');
+
+                            $container.append(blogsHtml);
+                            offset += response.blogs.length;
 
                             if (!response.hasMore) {
-                                $('#moreBlogs').hide();
+                                $button.remove();
                             }
                         } else {
-                            $('#moreBlogs').hide();
+                            $button.remove();
                         }
+                    },
+                    error: function(xhr) {
+                        console.error('Error loading blogs:', xhr.responseText);
+                        $button.html('Error - Click to try again');
+                    },
+                    complete: function() {
+                        $button.prop('disabled', false).text('Load More Blogs');
                     }
                 });
             });

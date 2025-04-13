@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             SpecialDietSeeder::class,
             ContactSeeder::class,
             AskForDietSeeder::class,
+            RecipeCategorySeeder::class,
             RecipeSeeder::class
         ]);
     }

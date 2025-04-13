@@ -51,8 +51,9 @@
                                     <td>{{ $recipe->status }}</td>
                                     <td>{{ $recipe->created_at->format('d-m-Y') }}</td>
                                     <td>
-                                        <x-EditShow url="{{ route('admin.recipe.show', $recipe->id) }}" class="info"
-                                            title="Details" text="<i class='fa-solid fa-info'></i>"></x-EditShow>
+                                        <a href="{{ route('admin.recipe.show', $recipe->id) }}" class="btn btn-md btn-info" title="Details">
+                                            <i class='fa-solid fa-info'></i>
+                                        </a>
                                     </td>
                                     <td>
                                         <form action="{{ route('admin.recipe.delete', $recipe->id) }}" method="POST">

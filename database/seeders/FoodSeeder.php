@@ -14,7 +14,7 @@ class FoodSeeder extends Seeder
             Food::create([
                 'name' => 'Food ' . $i,
                 'image' => 'foods/food.jpeg',
-                'category_id' => rand(1, 9),
+                'category_id' => rand(1, 5),
                 'calories' => $i . rand(0.5, 1.5),
                 'protein' => $i . rand(0.5, 1.5),
                 'carbs' => $i . rand(0.5, 1.5),

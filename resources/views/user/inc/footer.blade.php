@@ -61,6 +61,7 @@
 {{-- Js --}}
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/fontawesome.min.js') }}"></script>
+<script src="{{ asset('admin/js/Featherlight.js') }}"></script>
 @yield('script')
 
 </body>

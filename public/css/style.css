@@ -999,15 +999,14 @@ a.active {
 }
 
 .text-bg span {
-    font-size: 41px;
+    font-size: 35px;
     line-height: 51px;
-    color: #020500
+    color: #020500;
 }
 
 .text-bg h1 {
     color: #43960f;
     padding-top: 10px;
-    font-size: 71px;
     line-height: 85px;
     padding-bottom: 45px;
     font-weight: bold;

@@ -1,4 +1,9 @@
 <x-app-layout>
+    @section('meta')
+    <meta name="keywords" content="health dashboard, user health profile, personal data, progress tracking, custom diet">
+    <meta name="description" content="Track your progress, update personal data, and access customized diet recommendations all in one place.">
+    @endsection
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}

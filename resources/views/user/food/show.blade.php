@@ -1,7 +1,12 @@
 @extends('user.layout')
 
+@section('meta')
+<meta name="keywords" content="{{ $category->name }}, healthy food types, nutrition guide, food groups, fruits, vegetables, drinks, meat, fish, fats, oil, proteins, balanced diet">
+<meta name="description" content="{{ $category->name }}, Browse different food categories including fruits, vegetables, proteins, grains, and more. Discover their nutritional value and health benefits.">
+@endsection
+
 @section('title')
-    {{ $category->name }}
+    {{ $category->name }} | HealthifyMe
 @endsection
 
 @section('body')

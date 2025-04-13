@@ -1,86 +1,138 @@
-<nav class="navbar navbar-expand-sm navbar-dark px-5" style="background-color: #ececf0;">
-    <a class="navbar-brand text-dark fw-medium" href="/"><strong>HealthifyMe</strong></a>
-    <button class="navbar-toggler d-lg-none bg-dark" type="button" data-bs-toggle="collapse"
-        data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-        aria-label="Toggle navigation"><span class="navbar-toggler-icon" style="width: 1rem;"></span></button>
-    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavId">
-        <ul class="navbar-nav mt-2 mt-lg-0 gap-3">
-            <li class="nav-item">
-                <a class="nav-link fs-6 text-dark fw-medium {{ request()->is('/') || request()->is('home') ? 'active' : '' }}"
-                    aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link fs-6 text-dark fw-medium {{ request()->is('about') ? 'active' : '' }}"
-                    aria-current="page" href="{{ url('about') }}">About us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link fs-6 text-dark fw-medium {{ request()->is('blog') ? 'active' : '' }}"
-                    aria-current="page" href="{{ route('blog.blogs') }}">Blogs</a>
-            </li>
-            <div class="dropdown nav-link fs-6 text-dark fw-medium {{ request()->is('food') ? 'active' : '' }}">
-                <a class="nav-item dropdown-toggle food" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Food
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="{{ route('food.type', 'Fruit') }}" class="dropdown-item">
-                            Fruits
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('food.type', 'Vegetable') }}" class="dropdown-item">
-                            Vegetables
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('food.type', 'Drinks') }}" class="dropdown-item">
-                            Drinks
-                        </a>
-                    </li>
-                    <hr class="m-0 mt-2">
-                    <li>
-                        <a href="{{ route('food.foods') }}" class="dropdown-item">
-                            See All
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <li class="nav-item">
-                <a class="nav-link fs-6 text-dark fw-medium {{ request()->is('contact') ? 'active' : '' }}"
-                    aria-current="page" href="{{ route('contact.create') }}">Contact us</a>
-            </li>
-            @guest
+@php
+    use App\Models\RecipeCategory;
+    $recipeCategory = RecipeCategory::latest()->get();
+@endphp
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-3 px-md-5 py-3">
+    <div class="container-fluid">
+        <!-- Brand Logo -->
+        <a class="navbar-brand text-dark fw-bold" href="/">
+            <span style="color: #4CAF50;">Healthify</span><span style="color: #2196F3;">Me</span>
+        </a>
+
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+            <ul class="navbar-nav align-items-center gap-2 gap-lg-3">
+                <!-- Home -->
                 <li class="nav-item">
-                    <a class="nav-link fs-6 text-dark fw-medium" href="{{ route('login') }}">Login</a>
+                    <a class="nav-link {{ request()->is('/') ? 'active fw-bold' : 'fw-medium' }}"
+                        href="{{ url('/') }}">
+                        Home
+                    </a>
                 </li>
+
+                <!-- About -->
                 <li class="nav-item">
-                    <a class="nav-link fs-6 text-dark fw-medium" href="{{ route('register') }}">Sign up</a>
+                    <a class="nav-link {{ request()->is('about') ? 'active fw-bold' : 'fw-medium' }}"
+                        href="{{ url('about') }}">
+                        About Us
+                    </a>
                 </li>
-            @endguest
-            @auth
-                <div class="dropdown">
-                    <button class="nav-link text-dark fs-6 fw-medium dropdown-toggle" type="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Account
-                    </button>
-                    <ul class="dropdown-menu text-center">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark fw-medium {{ request()->routeIs('dashboard') ? 'active' : '' }}"
-                                href="{{ route('dashboard') }}">Dashboard</a>
-                        </li>
+
+                <!-- Blogs -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('blog*') ? 'active fw-bold' : 'fw-medium' }}"
+                        href="{{ route('blog.blogs') }}">
+                        Blogs
+                    </a>
+                </li>
+
+                <!-- Healthy Recipes Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->is('healthy-recipes*') ? 'active fw-bold' : 'fw-medium' }}"
+                        href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Healthy Recipes
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        @foreach ($recipeCategory as $category)
+                            <li><a class="dropdown-item" href="{{ route('healthy-recipe.category', $category->name) }}">{{ $category->name }}</a></li>
+                        @endforeach
                         <li>
-                            <a class="nav-link text-dark fw-medium" href="{{ route('profile.edit') }}">Profile</a>
+                            <hr class="dropdown-divider">
                         </li>
-                        <li class="nav-item">
-                            <form action="{{ route('logout') }}" method="post">
-                                @csrf
-                                <button type="submit" class="nav-link text-dark fw-medium m-auto">Logout</button>
-                            </form>
+                        <li><a class="dropdown-item" href="{{ route('healthy-recipe.recipes') }}">See All Recipes</a>
                         </li>
                     </ul>
-                </div>
-            @endauth
-        </ul>
+                </li>
+
+                <!-- Food Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->is('food*') ? 'active fw-bold' : 'fw-medium' }}"
+                        href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Food
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{{ route('food.type', 'Fruit') }}">Fruits</a></li>
+                        <li><a class="dropdown-item" href="{{ route('food.type', 'Vegetable') }}">Vegetables</a></li>
+                        <li><a class="dropdown-item" href="{{ route('food.type', 'Drinks') }}">Drinks</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{{ route('food.foods') }}">Browse All Foods</a></li>
+                    </ul>
+                </li>
+
+                <!-- Contact -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('contact*') ? 'active fw-bold' : 'fw-medium' }}"
+                        href="{{ route('contact.create') }}">
+                        Contact Us
+                    </a>
+                </li>
+
+                <!-- Auth Links -->
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-success px-3 py-1" href="{{ route('login') }}">
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-success px-3 py-1" href="{{ route('register') }}">
+                            Sign Up
+                        </a>
+                    </li>
+                @endguest
+
+                @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Account
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                                    href="{{ route('dashboard') }}">
+                                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item {{ request()->routeIs('profile.edit') ? 'active' : '' }}"
+                                    href="{{ route('profile.edit') }}">
+                                    <i class="fas fa-user me-2"></i>Profile
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @endauth
+            </ul>
+        </div>
     </div>
 </nav>

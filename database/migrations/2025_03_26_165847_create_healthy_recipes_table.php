@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->integer('calories')->nullable();
-            $table->string('images')->nullable();
+            $table->longText('images')->nullable();
             $table->string('video')->nullable();
+            $table->foreignId('recipe_category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

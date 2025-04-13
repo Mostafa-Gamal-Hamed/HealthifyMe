@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\DietController;
 use App\Http\Controllers\Admin\DietRequestController;
 use App\Http\Controllers\Admin\FoodController as AdminFoodController;
+use App\Http\Controllers\Admin\RecipeCategoryController;
 use App\Http\Controllers\Admin\RecipeController;
 use App\Http\Controllers\Admin\SpecialDietController;
 use App\Http\Controllers\Admin\UserController;
@@ -15,10 +16,10 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\HealthyRecipeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
-use App\Models\Blog;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -91,6 +92,18 @@ Route::controller(BlogController::class)->group(function () {
     Route::post('blog/like/{id}', 'like')->name("blog.like");
     // DisLike
     Route::post('blog/disLike/{id}', 'disLike')->name("blog.disLike");
+});
+
+// Healthy recipe
+Route::controller(HealthyRecipeController::class)->group(function () {
+    // Healthy Recipes
+    Route::get('healthy-recipes', 'index')->name("healthy-recipe.recipes");
+    // Type recipe
+    Route::get('healthy-recipes/{category}', 'category')->name("healthy-recipe.category");
+    // Show
+    Route::get('healthy-recipe/{id}', 'show')->name("healthy-recipe.show");
+    // Search
+    Route::get('healthy-recipe', 'search')->name("healthy-recipe.search");
 });
 
 // Food
@@ -223,7 +236,7 @@ Route::middleware(IsAdmin::class)->group(function () {
         Route::get('blogSearch/{search}', 'search')->name("admin.blog.search");
     });
 
-    // Category
+    // Food category
     Route::controller(CategoryController::class)->group(function () {
         // All categories
         Route::get('categories', 'index')->name("admin.category.categories");
@@ -265,6 +278,28 @@ Route::middleware(IsAdmin::class)->group(function () {
         Route::delete('secondDeleteFood/{id}', 'secondDestroy')->name("admin.food.secondDelete");
         // Search
         Route::get('foodSearch/{search}', 'search')->name("admin.food.search");
+    });
+
+    // Recipe category
+    Route::controller(RecipeCategoryController::class)->group(function () {
+        // All categories
+        Route::get('recipeCategories', 'index')->name("admin.recipeCategory.categories");
+        // Show
+        Route::get('show_RecipeCategory/{id}', 'show')->name("admin.recipeCategory.show");
+        // Edit
+        Route::get('edit_RecipeCategory/{id}', 'edit')->name("admin.recipeCategory.edit");
+        // Update
+        Route::put('update_RecipeCategory/{id}', 'update')->name("admin.recipeCategory.update");
+        // Create
+        Route::get('create_RecipeCategory', 'create')->name("admin.recipeCategory.create");
+        // Store
+        Route::post('store_RecipeCategory', 'store')->name("admin.recipeCategory.store");
+        // Delete
+        Route::delete('delete_RecipeCategory/{id}', 'destroy')->name("admin.recipeCategory.delete");
+        // Search
+        Route::get('recipeCategorySearch/{search}', 'search')->name("admin.recipeCategory.search");
+        // Second delete
+        Route::delete('secondDelete_RecipeCategory/{id}', 'secondDestroy')->name("admin.recipeCategory.secondDelete");
     });
 
     // Recipes

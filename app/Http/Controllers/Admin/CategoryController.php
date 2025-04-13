@@ -10,8 +10,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::orderby('id', 'desc')->paginate(20);
-        return view("admin.category.index", compact("categories"));
+        $categories = Category::paginate(20);
+        return view("admin.food.category.index", compact("categories"));
     }
 
     public function store(Request $request)
@@ -26,13 +26,13 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         $category = Category::findOrFail($id);
-        return view("admin.category.show", compact("category"));
+        return view("admin.food.category.show", compact("category"));
     }
 
     public function edit(string $id)
     {
         $category = Category::find($id);
-        return view("admin.category.edit", compact("category"));
+        return view("admin.food.category.edit", compact("category"));
     }
 
     public function update(Request $request, string $id)
@@ -52,13 +52,6 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->back()->with("success", "Category deleted successfully");
-    }
-
-    public function search(string $search)
-    {
-        $category = Category::where('name', 'like', "%{$search}%")->first();
-
-        return response()->json(['category' => $category]);
     }
 
     public function secondDestroy(string $id)

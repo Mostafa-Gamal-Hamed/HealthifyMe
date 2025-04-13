@@ -1,7 +1,12 @@
 @extends('user.layout')
 
+@section('meta')
+<meta name="keywords" content="{{ $blog->title }} blog, nutrition tips, {{ $blog->title }}, healthy lifestyle, weight loss advice, wellness articles, fitness blog">
+<meta name="description" content="{{ $blog->title }} ,Read expert articles, tips, and insights on healthy living, nutrition, weight loss, and fitness. Stay informed and inspired on your health journey.">
+@endsection
+
 @section('title')
-    {{ $blog->title }}
+    {{ $blog->title }} | HealthifyMe
 @endsection
 
 @section('body')
@@ -9,7 +14,7 @@
         <div class="titlepage mt-2">
             <div class="p-2 border m-auto" style="max-width: 90%;height: 90%;">
                 <img src="{{ $blog->image ? asset("images/$blog->image") : asset('images/modern_logo.png') }}"
-                    alt="{{ $blog->image }}">
+                    alt="{{ $blog->title }}">
             </div>
             <h2 class="text-center mt-3">{{ $blog->title }}</h2>
         </div>
@@ -17,6 +22,10 @@
         {{-- Description --}}
         <div class="p-3 shadow bg-light shadow-lg">
             <h4>{{ $blog->desc }}</h4>
+            <div class="d-flex justify-content-between">
+                <p class="text-muted">By: {{ $blog->user->firstName }} {{ $blog->user->lastName }}</p>
+                <p class="text-muted">{{ $blog->created_at->diffForHumans() }}</p>
+            </div>
             <div class="d-flex justify-content-end align-items-center gap-3 mt-3">
                 <button type="button" class="btn btn-outline-primary border px-5" id="like"
                     data-id="{{ $blog->id }}" data-user="{{ Auth::id() ?? 0 }}">

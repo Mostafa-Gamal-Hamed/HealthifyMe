@@ -12,11 +12,17 @@ class HealthyRecipe extends Model
         'calories',
         'images',
         'video',
+        'recipe_category_id',
         'user_id'
     ];
 
+    public function category()
+    {
+        return $this->belongsTo(RecipeCategory::class, 'recipe_category_id');
+    }
+
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

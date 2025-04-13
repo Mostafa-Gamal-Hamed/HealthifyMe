@@ -1,15 +1,22 @@
 @extends('user.layout')
 
-@section('title')
-    Contact us
+@section('meta')
+    <meta name="keywords"
+        content="contact HealthifyMe, get in touch, support, feedback, questions, health support, customer service">
+    <meta name="description"
+        content="Have questions, feedback, or suggestions? Reach out to HealthifyMe — we’d love to hear from you. Contact our support or team today.">
 @endsection
 
-@section("style")
+@section('title')
+    Contact us | HealthifyMe
+@endsection
+
+@section('style')
     <style>
-    .error {
-        color: red;
-        font-size: 0.9em;
-    }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
     </style>
 @endsection
 

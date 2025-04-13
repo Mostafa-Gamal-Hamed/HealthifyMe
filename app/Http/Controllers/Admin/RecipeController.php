@@ -58,10 +58,8 @@ class RecipeController extends Controller
     public function show(string $id)
     {
         $recipe   = HealthyRecipe::findOrFail($id);
-        $likes    = RecipeLike::where("healthy_recipe_id", $id)->where('status', 'like')->count();
-        $disLikes = RecipeLike::where("healthy_recipe_id", $id)->where('status', 'dislike')->count();
 
-        return view("admin.recipe.show", compact("recipe", "likes", "disLikes"));
+        return view("admin.recipe.show", compact("recipe"));
     }
 
     public function edit(string $id)

@@ -89,7 +89,7 @@
                 </div>
             </div>
 
-            {{-- Categories --}}
+            {{-- Food categories --}}
             <div class="nav-item dropdown mt-2">
                 <a href="#"
                     class="nav-link {{ request()->routeIs('admin.category.categories') || request()->routeIs('admin.category.create') || request()->routeIs('admin.category.show') ? 'text-dark active show' : '' }}"
@@ -125,6 +125,43 @@
                 </div>
             </div>
 
+            {{-- Recipe categories --}}
+            <div class="nav-item dropdown mt-2">
+                <a href="#"
+                    class="nav-link {{ request()->routeIs('admin.recipeCategory.categories') ||
+                    request()->routeIs('admin.recipeCategory.create') || request()->routeIs('admin.recipeCategory.show') ? 'text-dark active show' : '' }}"
+                    data-bs-toggle="dropdown">
+                    <i class="fa-solid fa-list"></i> Recipe categories
+                </a>
+                <div
+                    class="dropdown-menu bg-transparent border-0 {{ request()->routeIs('admin.recipeCategory.categories') ||
+                    request()->routeIs('admin.recipeCategory.edit') || request()->routeIs('admin.recipeCategory.show') ? 'show' : '' }}">
+                    <a href="{{ route('admin.recipeCategory.categories') }}"
+                        class="dropdown-item {{ request()->routeIs('admin.recipeCategory.categories') ? 'active' : '' }}">
+                        <i class="fa-solid fa-table-list text-info"></i> All Categories
+                    </a>
+                </div>
+            </div>
+
+            {{-- Recipes --}}
+            <div class="nav-item dropdown mt-2">
+                <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                    <i class="fa-solid fa-utensils"></i> Recipes
+                </a>
+                <div
+                    class="dropdown-menu bg-transparent border-0 {{ request()->routeIs('admin.recipe.recipes') ||
+                    request()->routeIs('admin.recipe.create') || request()->routeIs('admin.recipe.edit')
+                        ? 'show'
+                        : '' }}">
+                    <a href="{{ route('admin.recipe.recipes') }}"
+                        class="dropdown-item {{ request()->routeIs('admin.recipe.recipes') ? 'active' : '' }}">
+                        <i class="fa-solid fa-wheat-awn-circle-exclamation text-info"></i> All Recipes</a>
+                    <a href="{{ route('admin.recipe.create') }}"
+                        class="dropdown-item {{ request()->routeIs('admin.recipe.create') ? 'active' : '' }}">
+                        <i class="fa-solid fa-plus text-warning"></i> Add new recipe</a>
+                </div>
+            </div>
+
             {{-- Contact --}}
             <div class="nav-item dropdown mt-2">
                 <a href="#"
@@ -152,24 +189,6 @@
                         class="dropdown-item {{ request()->routeIs('admin.sentMessage.sentMessages') ? 'active' : '' }}">
                         <i class="fa-solid fa-paper-plane text-info"></i> Sent
                     </a>
-                </div>
-            </div>
-            {{-- Diets --}}
-            <div class="nav-item dropdown mt-2">
-                <a href="#" class="nav-link" data-bs-toggle="dropdown">
-                    <i class="fa-solid fa-utensils"></i> Recipes
-                </a>
-                <div
-                    class="dropdown-menu bg-transparent border-0 {{ request()->routeIs('admin.recipe.recipes') ||
-                    request()->routeIs('admin.recipe.create') || request()->routeIs('admin.recipe.edit')
-                        ? 'show'
-                        : '' }}">
-                    <a href="{{ route('admin.recipe.recipes') }}"
-                        class="dropdown-item {{ request()->routeIs('admin.recipe.recipes') ? 'active' : '' }}">
-                        <i class="fa-solid fa-wheat-awn-circle-exclamation text-info"></i> All Recipes</a>
-                    <a href="{{ route('admin.recipe.create') }}"
-                        class="dropdown-item {{ request()->routeIs('admin.recipe.create') ? 'active' : '' }}">
-                        <i class="fa-solid fa-plus text-warning"></i> Add new recipe</a>
                 </div>
             </div>
         </div>

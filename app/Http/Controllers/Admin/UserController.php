@@ -30,8 +30,8 @@ class UserController extends Controller
         $bmr = null;
         if ($dietInfo) {
             $bmr = match ($dietInfo->gender) {
-                'male'   => (10 * $dietInfo->weight) + (6.25 * $dietInfo->height) - (5 * $dietInfo->age) + 5,
-                'female' => (10 * $dietInfo->weight) + (6.25 * $dietInfo->height) - (5 * $dietInfo->age) - 161,
+                'male'   => round((10 * $dietInfo->weight) + (6.25 * $dietInfo->height) - (5 * $dietInfo->age) + 5),
+                'female' => round((10 * $dietInfo->weight) + (6.25 * $dietInfo->height) - (5 * $dietInfo->age) - 161),
                 default  => null,
             };
         }
@@ -44,11 +44,11 @@ class UserController extends Controller
             'professional' => 1.9,
         ];
 
-        $tdee = $bmr ? ($bmr * ($activity_levels[$user->activity_level] ?? 1.2)) : null;
+        $tdee = $bmr ? round(($bmr * ($activity_levels[$user->activity_level] ?? 1.2))) : null;
 
-        $lose_05kg  = $tdee ? $tdee - 500 : null;
-        $lose_1kg   = $tdee ? $tdee - 1000 : null;
-        $lose_1_5kg = $tdee ? $tdee - 1500 : null;
+        $lose_05kg  = $tdee ? round($tdee - 500) : null;
+        $lose_1kg   = $tdee ? round($tdee - 1000) : null;
+        $lose_1_5kg = $tdee ? round($tdee - 1500) : null;
 
         return view("admin.user.show", compact("user", "dietInfo", "diets", "bmr", "tdee", "lose_05kg", "lose_1kg", "lose_1_5kg"));
     }

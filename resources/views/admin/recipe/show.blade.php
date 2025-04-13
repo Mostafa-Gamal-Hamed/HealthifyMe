@@ -37,8 +37,6 @@
                     <p>{!! $recipe->description !!}</p>
                 </div>
                 <h5 class="fw-bold">calories: <span>{{ $recipe->calories }}.</span></h5>
-                <h5 class="fw-bold">Liked: <span class="text-primary">{{ $likes }}</span></h5>
-                <h5 class="fw-bold">DisLiked: <span class="text-danger">{{ $disLikes }}</span></h5>
                 <div class="d-flex align-items-center justify-content-between">
                     <span class="text-muted">By: <a href="{{ route('admin.user.show',$recipe->user->id) }}">
                         {{ $recipe->user->firstName }} {{ $recipe->user->lastName }}
@@ -48,8 +46,9 @@
                 <hr>
                 <div class="d-flex">
                     <div class="col">
-                        <x-EditShow url="{{ route('admin.recipe.edit', $recipe->id) }}" class="success w-75" title="Edit"
-                            text="<i class='fa-solid fa-edit'></i>"></x-EditShow>
+                        <a href="{{ route('admin.recipe.edit', $recipe->id) }}" class="btn btn-md btn-success w-75" title="Edit">
+                            <i class='fa-solid fa-edit'></i>
+                        </a>
                     </div>
                     <form action="{{ route('admin.recipe.secondDelete', $recipe->id) }}" method="POST" class="col">
                         @csrf

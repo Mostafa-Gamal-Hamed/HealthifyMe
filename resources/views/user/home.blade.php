@@ -1,5 +1,10 @@
 @extends('user.layout')
 
+@section('meta')
+    <meta name="keywords" content="healthifyme, healthy living, weight loss, calorie calculator, calorie tracker, meal planner, healthy eating, nutrition, diet plans, low-calorie meals, wellness, fitness, balanced diet, healthy lifestyle">
+    <meta name="description" content="Welcome to HealthifyMe — your personalized platform for diet plans, Discover delicious and nutritious healthy recipes, personalized diet plans, and smart calorie tracking tools to help you lose weight, eat better, and live healthier. Start your wellness journey with HealthifyMe today!">
+@endsection
+
 @section('title')
     HealthifyMe
 @endsection
@@ -67,7 +72,7 @@
                                         </p>
                                         <div class="d-flex gap-2">
                                             <a href="{{ route('contact.create') }}">Contact Us</a>
-                                            <a href="{{ route('food.foods', 'fruit') }}">Food</a>
+                                            <a href="{{ route('food.foods') }}">Food</a>
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +133,7 @@
                                         class="card-img-top" alt="Blog">
                                     <div class="card-body">
                                         <h5 class="card-title text-center"><strong>{{ $blog->title }}</strong></h5>
-                                        <p class="text-end text-muted p-0">{{ $blog->created_at }}</p>
+                                        <p class="text-end text-muted p-0">{{ $blog->created_at->diffForHumans() }}</p>
                                         <p class="card-text mb-2">{!! Str::limit($blog->desc, 100) !!}</p>
                                         <a href="{{ route('blog.show', $blog->id) }}"
                                             class="btn btn-outline-success px-5">Read</a>
