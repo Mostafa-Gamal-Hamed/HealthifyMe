@@ -87,7 +87,7 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: `{{ route('food.show', '') }}/` + id,
+                    url: `{{ url('food') }}/` + id,
                     success: function(data) {
                         $('#logoBeforeFood').fadeOut();
                         $('#details').hide(50);

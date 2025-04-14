@@ -125,7 +125,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('admin.contact.search', '') }}/" + value,
+                    url: "{{ url('contactSearch') }}/" + value,
                     success: function(response) {
                         console.log(response.email);
                         if (response.email && response.email.length != 0) {
@@ -150,8 +150,8 @@
                                 </span>
                             `;
 
-                            var show   = `{{ route('admin.sentMessage.show', '') }}/${email.id}`;
-                            var remove = `{{ route('admin.sentMessage.delete', '') }}/${email.id}`;
+                            var show   = `{{ url('showContact', '') }}/${email.id}`;
+                            var remove = `{{ url('deleteSentMessage') }}/${email.id}`;
 
                             body.append(`
                                 <tr ${table}>

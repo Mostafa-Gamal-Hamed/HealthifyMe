@@ -52,7 +52,7 @@
                 const button = $(this);
                 const id     = button.data('id');
                 const user   = button.data('user');
-                const url    = "{{ route('blog.like', '') }}/" + id;
+                const url    = "{{ url('blog/like') }}/" + id;
                 const data   = {
                     _token: '{{ csrf_token() }}',
                     user: user
@@ -81,7 +81,7 @@
                 const button = $(this);
                 const id     = button.data('id');
                 const user   = button.data('user');
-                const url    = "{{ route('blog.disLike', '') }}/" + id;
+                const url    = "{{ url('blog/disLike') }}/" + id;
                 const data   = {
                     _token: '{{ csrf_token() }}',
                     user: user

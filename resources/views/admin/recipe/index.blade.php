@@ -91,7 +91,7 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "{{ route('admin.recipe.search', '') }}/" + value,
+                        url: "{{ url('recipeSearch') }}/" + value,
                         success: function(response) {
                             console.log(response.recipes);
                             var resultHtml = '';
@@ -114,9 +114,9 @@
                                     var status = recipe.status || " ";
 
                                     var show =
-                                        `{{ route('admin.recipe.show', '') }}/${recipe.id}`;
+                                        `{{ url('showRecipe', '') }}/${recipe.id}`;
                                     var remove =
-                                        `{{ route('admin.recipe.delete', '') }}/${recipe.id}`;
+                                        `{{ url('deleteRecipe', '') }}/${recipe.id}`;
 
                                     body.append(`
                                         <tr>

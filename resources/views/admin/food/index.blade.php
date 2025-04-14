@@ -96,7 +96,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('admin.food.search', '') }}/" + value,
+                    url: "{{ url('foodSearch') }}/" + value,
                     success: function(response) {
                         if (response.food && response.food.length != 0) {
                             var food = response.food;
@@ -117,9 +117,9 @@
                                     alt="Food">
                             `;
 
-                            var show   = `{{ route('admin.food.show', '') }}/${food.id}`;
-                            var edit   = `{{ route('admin.food.edit', '') }}/${food.id}`;
-                            var remove = `{{ route('admin.food.delete', '') }}/${food.id}`;
+                            var show   = `{{ url('showFood', '') }}/${food.id}`;
+                            var edit   = `{{ url('editFood', '') }}/${food.id}`;
+                            var remove = `{{ url('deleteFood', '') }}/${food.id}`;
 
                             body.append(`
                                     <tr>

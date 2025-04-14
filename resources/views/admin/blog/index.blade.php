@@ -100,7 +100,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('admin.blog.search', '') }}/" + value,
+                    url: "{{ url('blogSearch') }}/" + value,
                     success: function(response) {
                         if (response.blog && response.blog.length != 0) {
                             var blog = response.blog;
@@ -124,9 +124,9 @@
                                     style="cursor: pointer;" class="img-fluid rounded-circle" width="80px" alt="Blog">
                             `;
 
-                            var show   = `{{ route('admin.blog.show', '') }}/${blog.id}`;
-                            var edit   = `{{ route('admin.blog.edit', '') }}/${blog.id}`;
-                            var remove = `{{ route('admin.blog.delete', '') }}/${blog.id}`;
+                            var show   = `{{ url('showBlog') }}/${blog.id}`;
+                            var edit   = `{{ url('editBlog') }}/${blog.id}`;
+                            var remove = `{{ url('deleteBlog') }}/${blog.id}`;
 
                             body.append(`
                                 <tr>

@@ -51,7 +51,7 @@
             const baseUrl      = "{{ route('blog.blogs') }}";
             const defaultImage = "{{ asset('images/modern_logo.png') }}";
             const imagesPath   = "{{ asset('images') }}/";
-            const showRoute    = "{{ route('blog.show', '') }}";
+            const showRoute    = "{{ url('blog') }}";
 
             $moreButton.on('click', function() {
                 const $button = $(this);

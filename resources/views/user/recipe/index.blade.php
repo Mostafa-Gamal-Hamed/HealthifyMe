@@ -52,7 +52,7 @@
             const baseUrl      = "{{ route('healthy-recipe.recipes') }}";
             const defaultImage = "{{ asset('images/recipes/recipe.png') }}";
             const storagePath  = "{{ asset('storage') }}/";
-            const showRoute    = "{{ route('healthy-recipe.show', '') }}";
+            const showRoute    = "{{ url('healthy-recipe') }}";
 
             $moreButton.on('click', function() {
                 $(this).prop('disabled', true).html(

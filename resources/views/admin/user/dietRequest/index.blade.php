@@ -83,7 +83,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('admin.dietRequests.search', '') }}/" + value,
+                    url: "{{ url('dietRequestSearch') }}/" + value,
                     success: function(response) {
                         var resultHtml = '';
 
@@ -100,8 +100,8 @@
 
                                 var approved = request.accept == 0 ? 'no' : 'yes';
 
-                                var show   = `{{ route('admin.user.show', '') }}/${request.id}`;
-                                var remove = `{{ route('admin.dietRequests.delete', '') }}/${request.id}`;
+                                var show   = `{{ url('dietRequest') }}/${request.id}`;
+                                var remove = `{{ url('deleteDietRequest') }}/${request.id}`;
 
                                 body.append(`
                                     <tr>

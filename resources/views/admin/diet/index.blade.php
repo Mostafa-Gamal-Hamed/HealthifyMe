@@ -85,7 +85,7 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "{{ route('admin.diet.search', '') }}/" + value,
+                        url: "{{ url('dietSearch') }}/" + value,
                         success: function(response) {
                             var resultHtml = '';
 

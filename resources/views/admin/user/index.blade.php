@@ -100,7 +100,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('admin.user.search', '') }}/" + value,
+                    url: "{{ url('userSearch') }}/" + value,
                     success: function(response) {
                         var resultHtml = '';
 
@@ -117,21 +117,21 @@
                                 'en-GB');
 
                                 if (user.status === 'active') {
-                                    var status = `<a href="{{ route('admin.user.status', ['type' => 'inactive', 'id' => '__userId__']) }}"
+                                    var status = `<a href="{{ url('status', ['type' => 'inactive', 'id' => '__userId__']) }}"
                                         class='badge bg-success' onclick="return confirm('Change to inactive?');">
                                         ${user.status}
                                     </a>`;
                                     status = status.replace('__userId__', user.id);
                                 } else {
-                                    var status = `<a href="{{ route('admin.user.status', ['type' => 'active', 'id' => '__userId__']) }}"
+                                    var status = `<a href="{{ url('status', ['type' => 'active', 'id' => '__userId__']) }}"
                                         class='badge bg-danger' onclick="return confirm('Change to active?');">
                                         ${user.status}
                                     </a>`;
                                     status = status.replace('__userId__', user.id);
                                 }
 
-                                var show   = `{{ route('admin.user.show', '') }}/${user.id}`;
-                                var remove = `{{ route('admin.user.delete', '') }}/${user.id}`;
+                                var show   = `{{ url('user', '') }}/${user.id}`;
+                                var remove = `{{ url('deleteUser', '') }}/${user.id}`;
 
                                 body.append(`
                                     <tr>

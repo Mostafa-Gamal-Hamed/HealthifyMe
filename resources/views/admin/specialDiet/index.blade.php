@@ -92,7 +92,7 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "{{ route('admin.specialDiet.search', '') }}/" + value,
+                        url: "{{ url('specialDietSearch') }}/" + value,
                         success: function(response) {
                             console.log(response.diets);
 

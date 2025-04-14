@@ -1,5 +1,8 @@
 @php
+    use App\Models\Category;
     use App\Models\RecipeCategory;
+
+    $foodCategory   = Category::latest()->get();
     $recipeCategory = RecipeCategory::latest()->get();
 @endphp
 <nav class="navbar navbar-expand-lg navbar-light bg-light px-3 px-md-5 py-3">
@@ -67,13 +70,9 @@
                         Food
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="{{ route('food.type', 'Fruit') }}">Fruits</a></li>
-                        <li><a class="dropdown-item" href="{{ route('food.type', 'Vegetable') }}">Vegetables</a></li>
-                        <li><a class="dropdown-item" href="{{ route('food.type', 'Drinks') }}">Drinks</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="{{ route('food.foods') }}">Browse All Foods</a></li>
+                        @foreach ($foodCategory as $category)
+                            <li><a class="dropdown-item" href="{{ route('food.type', "$category->name") }}">{{ $category->name }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
 
