@@ -22,6 +22,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\superAdmin;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -146,21 +147,23 @@ Route::post('/store', [NewsletterController::class, 'store'])->name('newsletter.
 //// Admin side
 Route::middleware(IsAdmin::class)->group(function () {
     // Admin
-    Route::controller(AdminController::class)->group(function () {
-        // All admins
-        Route::get('admins', 'index')->name("admin.admin.admins");
-        // Show
-        Route::get('admin/{id}', 'show')->name("admin.admin.show");
-        // Status
-        Route::get('statusAdmin.admin.status/{type}/{id}', 'status')->name("admin.admin.status");
-        // Create
-        Route::get('createAdmin', 'create')->name("admin.admin.create");
-        // Store
-        Route::post('storeAdmin', 'store')->name("admin.admin.store");
-        // Delete
-        Route::delete('deleteAdmin/{id}', 'destroy')->name("admin.admin.delete");
-        // Search
-        Route::get('adminSearch/{search}', 'search')->name("admin.admin.search");
+    Route::middleware(superAdmin::class)->group(function() {
+        Route::controller(AdminController::class)->group(function () {
+            // All admins
+            Route::get('admins', 'index')->name("admin.admin.admins");
+            // Show
+            Route::get('admin/{id}', 'show')->name("admin.admin.show");
+            // Status
+            Route::get('statusAdmin.admin.status/{type}/{id}', 'status')->name("admin.admin.status");
+            // Create
+            Route::get('createAdmin', 'create')->name("admin.admin.create");
+            // Store
+            Route::post('storeAdmin', 'store')->name("admin.admin.store");
+            // Delete
+            Route::delete('deleteAdmin/{id}', 'destroy')->name("admin.admin.delete");
+            // Search
+            Route::get('adminSearch/{search}', 'search')->name("admin.admin.search");
+        });
     });
 
     // User

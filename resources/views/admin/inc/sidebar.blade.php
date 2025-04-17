@@ -25,23 +25,25 @@
             </a>
 
             {{-- Admins --}}
-            <div class="nav-item dropdown mt-2">
-                <a href="#"
-                    class="nav-link {{ request()->routeIs('admin.admin.admins') || request()->routeIs('admin.admin.show') ? 'text-dark active show' : '' }}"
-                    data-bs-toggle="dropdown">
-                    <i class="fa fa-users me-2"></i> Admins
-                </a>
-                <div
-                    class="dropdown-menu bg-transparent border-0 {{ request()->routeIs('admin.admin.admins') || request()->routeIs('admin.admin.show')
-                    || request()->routeIs('admin.admin.create') ? 'show' : '' }}">
-                    <a href="{{ route('admin.admin.admins') }}"
-                        class="dropdown-item {{ request()->routeIs('admin.admin.admins') ? 'active' : '' }}">
-                        <i class="fa-solid fa-table-list text-info"></i> All admins</a>
-                    <a href="{{ route('admin.admin.create') }}"
-                        class="dropdown-item {{ request()->routeIs('admin.admin.create') ? 'active' : '' }}"><i
-                            class="fa-solid fa-plus text-warning"></i> Add new admin</a>
+            @if (Auth::user()->role === "superAdmin")
+                <div class="nav-item dropdown mt-2">
+                    <a href="#"
+                        class="nav-link {{ request()->routeIs('admin.admin.admins') || request()->routeIs('admin.admin.show') ? 'text-dark active show' : '' }}"
+                        data-bs-toggle="dropdown">
+                        <i class="fa fa-users me-2"></i> Admins
+                    </a>
+                    <div
+                        class="dropdown-menu bg-transparent border-0 {{ request()->routeIs('admin.admin.admins') || request()->routeIs('admin.admin.show')
+                        || request()->routeIs('admin.admin.create') ? 'show' : '' }}">
+                        <a href="{{ route('admin.admin.admins') }}"
+                            class="dropdown-item {{ request()->routeIs('admin.admin.admins') ? 'active' : '' }}">
+                            <i class="fa-solid fa-table-list text-info"></i> All admins</a>
+                        <a href="{{ route('admin.admin.create') }}"
+                            class="dropdown-item {{ request()->routeIs('admin.admin.create') ? 'active' : '' }}"><i
+                                class="fa-solid fa-plus text-warning"></i> Add new admin</a>
+                    </div>
                 </div>
-            </div>
+            @endif
 
             {{-- Users --}}
             <div class="nav-item dropdown mt-2">

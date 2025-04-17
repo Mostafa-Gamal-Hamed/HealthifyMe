@@ -16,12 +16,15 @@
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
+            <div class="position-relative">
+                <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
                             name="password"
                             required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <span class="position-absolute" style="cursor: pointer; right:5%; top:25%;" id="showPass">Show</span>
+            </div>
         </div>
 
         <!-- Remember Me -->
@@ -45,3 +48,15 @@
         </div>
     </form>
 </x-guest-layout>
+
+<script>
+    $(document).ready(function() {
+        const $password  = $("#password");
+        const $show = $("#showPass");
+
+        $show.on("click", function() {
+            $password.attr("type", $password.attr("type") === "password" ? "text" :
+                "password");
+        });
+    });
+</script>
