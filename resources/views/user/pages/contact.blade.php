@@ -21,9 +21,6 @@
 @endsection
 
 @section('body')
-    {{-- Message --}}
-    @include('message')
-
     {{-- Contact us --}}
     <div id="contact" class="contact mt-5">
         <div class="container">

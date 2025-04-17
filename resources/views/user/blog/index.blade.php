@@ -17,21 +17,24 @@
     </div>
 
     <div class="container mb-5">
-        <div class="row align-items-center gap-3 justify-content-around" id="blogsContainer">
-            @foreach ($blogs as $blog)
-                <div class="card col-3" style="width: 18rem;">
-                    <img src="{{ $blog->image ? asset("images/$blog->image") : asset('images/modern_logo.png') }}"
-                        class="card-img-top" alt="Blog">
-                    <div class="card-body">
-                        <h5 class="card-title text-center"><strong>{{ $blog->title }}</strong></h5>
-                        <p class="text-end text-muted p-0">{{ $blog->created_at->diffForHumans() }}</p>
-                        <p class="card-text mb-2">{!! Str::limit($blog->desc, 100) !!}</p>
-                        <a href="{{ route('blog.show', $blog->id) }}" class="btn btn-outline-success px-5">Read</a>
+        @if ($blogs->isEmpty())
+            <h2 class="text-center text-danger fw-bold">Empty</h2>
+        @else
+            <div class="row align-items-center gap-3 justify-content-around" id="blogsContainer">
+                @foreach ($blogs as $blog)
+                    <div class="card col-3" style="width: 18rem;">
+                        <img src="{{ $blog->image ? asset("images/$blog->image") : asset('images/modern_logo.png') }}"
+                            class="card-img-top" alt="Blog">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><strong>{{ $blog->title }}</strong></h5>
+                            <p class="text-end text-muted p-0">{{ $blog->created_at->diffForHumans() }}</p>
+                            <p class="card-text mb-2">{!! Str::limit($blog->desc, 100) !!}</p>
+                            <a href="{{ route('blog.show', $blog->id) }}" class="btn btn-outline-success px-5">Read</a>
+                        </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
-        @if ($blogs->isNotEmpty())
+                @endforeach
+            </div>
+
             <div id="showMoreBlogs"></div>
             <div class="w-100 mt-3 text-center">
                 <button type="button" class="btn btn-primary px-5" id="moreBlogs">More</button>

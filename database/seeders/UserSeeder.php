@@ -35,18 +35,6 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'firstName' => 'Mayar',
-            'lastName'  => 'Mohamed',
-            'email'     => 'y@y.y',
-            'email_verified_at' => now(),
-            'password'  => bcrypt('Mm123456@'),
-            'role'      => 'admin',
-            'status'    => 'inactive',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        User::create([
             'firstName' => 'ahmed',
             'lastName'  => 'mohassen',
             'email'     => 'ah@ah.ah',
@@ -58,18 +46,16 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        for ($i=0; $i < 100; $i++) {
-            User::create([
-                'firstName' => 'User first ' . $i,
-                'lastName'  => 'User last ' . $i,
-                'email'     => 'user' . $i . '@example.com',
-                'email_verified_at' => now(),
-                'password'  => bcrypt('Mm123456@'),
-                'role'      => 'user',
-                'status'    => 'inactive',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
+        User::create([
+            'firstName' => 'User',
+            'lastName'  => 'mohamed',
+            'email'     => 'user@example.com',
+            'email_verified_at' => now(),
+            'password'  => bcrypt('Mm123456@'),
+            'role'      => 'user',
+            'status'    => 'inactive',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

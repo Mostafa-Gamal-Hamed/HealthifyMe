@@ -8,7 +8,7 @@
     <h1 style="color: green;text-align: center;font-weight: bold;font-style: italic;">HealthifyMe</h1>
     <div>
     <p>Hi There, </p>
-    <h4>{{ $messageContent }}</h4>
+    <h4>{{ $messageContent->message }}</h4>
 
     <p>Best regards,<br>HealthifyMe</p>
 </body>

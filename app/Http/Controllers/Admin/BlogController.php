@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogRequest;
+use App\Jobs\SendNewsletterJob;
 use App\Models\Blog;
 use App\Models\BlogLike;
 use Illuminate\Http\Request;
@@ -37,7 +38,11 @@ class BlogController extends Controller
             $data['image'] = $imagePath;
         }
 
-        Blog::create($data);
+        // Insert data
+        $blog = Blog::create($data);
+
+        // Send news to all newsLetter
+        dispatch(new SendNewsletterJob($blog));
 
         return redirect()->back()->with("success", "Blog created successfully");
     }

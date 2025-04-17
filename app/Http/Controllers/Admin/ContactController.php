@@ -75,7 +75,6 @@ class ContactController extends Controller
         ]);
 
         // Send mail
-        // $message = $request->message;
         Mail::to($request->email)->send(new SentMessageMail($sentMessage));
 
         return redirect()->back()->with('success', 'Email sent successfully!');

@@ -24,7 +24,7 @@ class BlogSeeder extends Seeder
                     dis parturient montes, nascetur ridiculus mus. Cum sociis nato
                     que penatibus et magnis dis parturient montes, nascetur ridicu
                     lus mus.',
-                'user_id' => rand(1,3),
+                'user_id' => rand(1,2),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

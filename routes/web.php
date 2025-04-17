@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AskForDietController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\HealthyRecipeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -132,16 +134,35 @@ Route::controller(ContactController::class)->group(function () {
     Route::delete('deleteAllMessages', 'destroyAll')->name("contact.deleteAll");
 });
 
-//// About us
+// About us
 Route::get('about', function () {
     return view('user.pages.about');
 });
 
-
+// Newsletter
+Route::post('/store', [NewsletterController::class, 'store'])->name('newsletter.store');
 
 
 //// Admin side
 Route::middleware(IsAdmin::class)->group(function () {
+    // Admin
+    Route::controller(AdminController::class)->group(function () {
+        // All admins
+        Route::get('admins', 'index')->name("admin.admin.admins");
+        // Show
+        Route::get('admin/{id}', 'show')->name("admin.admin.show");
+        // Status
+        Route::get('statusAdmin.admin.status/{type}/{id}', 'status')->name("admin.admin.status");
+        // Create
+        Route::get('createAdmin', 'create')->name("admin.admin.create");
+        // Store
+        Route::post('storeAdmin', 'store')->name("admin.admin.store");
+        // Delete
+        Route::delete('deleteAdmin/{id}', 'destroy')->name("admin.admin.delete");
+        // Search
+        Route::get('adminSearch/{search}', 'search')->name("admin.admin.search");
+    });
+
     // User
     Route::controller(UserController::class)->group(function () {
         // All users

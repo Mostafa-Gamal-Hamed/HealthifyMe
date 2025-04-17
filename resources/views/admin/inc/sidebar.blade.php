@@ -1,8 +1,8 @@
 <!-- Sidebar Start -->
 <div class="sidebar pe-4 pb-3">
     <nav class="navbar navbar-light">
-        <a href="index.html" class="navbar-brand mx-4 mb-3">
-            <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+        <a href="{{ url('/') }}" class="navbar-brand mx-4 mb-3">
+            <h3 class="text-primary"><i>HEALTHIFYME</i></h3>
         </a>
         <div class="d-flex align-items-center ms-4 mb-4">
             <div class="position-relative">
@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="ms-3">
-                <h6 class="mb-0">{{ Auth::user()->firstName }}</h6>
+                <h6 class="mb-0 text-light">{{ Auth::user()->firstName }}</h6>
                 <span class="text-light">{{ Auth::user()->role }}</span>
             </div>
         </div>
@@ -23,6 +23,25 @@
                 class="nav-item nav-link {{ request()->is('/') || request()->is('home') ? 'text-dark active' : '' }}">
                 <i class="fa fa-tachometer-alt me-2"></i>Dashboard
             </a>
+
+            {{-- Admins --}}
+            <div class="nav-item dropdown mt-2">
+                <a href="#"
+                    class="nav-link {{ request()->routeIs('admin.admin.admins') || request()->routeIs('admin.admin.show') ? 'text-dark active show' : '' }}"
+                    data-bs-toggle="dropdown">
+                    <i class="fa fa-users me-2"></i> Admins
+                </a>
+                <div
+                    class="dropdown-menu bg-transparent border-0 {{ request()->routeIs('admin.admin.admins') || request()->routeIs('admin.admin.show')
+                    || request()->routeIs('admin.admin.create') ? 'show' : '' }}">
+                    <a href="{{ route('admin.admin.admins') }}"
+                        class="dropdown-item {{ request()->routeIs('admin.admin.admins') ? 'active' : '' }}">
+                        <i class="fa-solid fa-table-list text-info"></i> All admins</a>
+                    <a href="{{ route('admin.admin.create') }}"
+                        class="dropdown-item {{ request()->routeIs('admin.admin.create') ? 'active' : '' }}"><i
+                            class="fa-solid fa-plus text-warning"></i> Add new admin</a>
+                </div>
+            </div>
 
             {{-- Users --}}
             <div class="nav-item dropdown mt-2">

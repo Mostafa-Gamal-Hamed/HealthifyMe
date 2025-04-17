@@ -15,8 +15,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('role', 'user')->orderby('id', 'desc')->paginate(20);
-
+        $users = User::whereIn('role', ['user', 'doctor'])->latest()->paginate(20);
         return view("admin.user.index", compact("users"));
     }
 

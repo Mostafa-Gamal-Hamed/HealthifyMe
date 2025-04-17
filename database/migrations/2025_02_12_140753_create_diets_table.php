@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('diets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->longText('description');
             $table->integer('calories');
-            $table->string('workouts')->nullable();
+            $table->longText('workouts')->nullable();
             $table->string('images')->nullable();
             $table->timestamps();
         });
