@@ -143,6 +143,11 @@ Route::get('about', function () {
 // Newsletter
 Route::post('/store', [NewsletterController::class, 'store'])->name('newsletter.store');
 
+// Privacy Policy
+Route::get('PrivacyPolicy', function () {
+    return view('user.pages.PrivacyPolicy');
+});
+
 
 //// Admin side
 Route::middleware(IsAdmin::class)->group(function () {

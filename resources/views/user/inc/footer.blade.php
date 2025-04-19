@@ -33,6 +33,9 @@
                                     <a href="https://wa.me/201141669674"><i class="fa-brands fa-whatsapp text-success mt-3 fs-2"></i></a>
                                 </strong>
                             </li>
+                            <li class="mt-3">
+                                <a href="{{ url('PrivacyPolicy') }}">Privacy Policy</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
