@@ -72,6 +72,17 @@
                                 @enderror
                             </div>
 
+                            {{-- Fiber --}}
+                            <div class="form-floating col-5 mb-3">
+                                <input type="text" name="fiber"
+                                    class="form-control @error('fiber') is-invalid @enderror" id="fiber"
+                                    value="{{ old('fiber') }}" placeholder="fiber" step="0.01">
+                                <label for="fiber">Fiber</label>
+                                @error('fiber')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+
                             {{-- Vitamins --}}
                             <div class="form-floating col-5 mb-3">
                                 <input type="text" name="vitamins"
@@ -83,21 +94,10 @@
                                 @enderror
                             </div>
 
-                            {{-- Fiber --}}
-                            <div class="form-floating col-5 mb-3">
-                                <input type="text" name="fiber"
-                                    class="form-control @error('fiber') is-invalid @enderror" id="fiber"
-                                    value="{{ old('fiber') }}" placeholder="fiber">
-                                <label for="fiber">Fiber</label>
-                                @error('fiber')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-
                             {{-- Category --}}
                             <div class="form-floating col-5 mb-3">
                                 <select class="form-select" name="category_id" id="category" aria-label="Floating label select example">
-                                    <option selected>Seledt category</option>
+                                    <option selected hidden>Select category</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach

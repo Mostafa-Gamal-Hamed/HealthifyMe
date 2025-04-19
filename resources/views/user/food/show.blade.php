@@ -54,8 +54,8 @@
                                             <th scope="col">Protein</th>
                                             <th scope="col">Carbs</th>
                                             <th scope="col">Fats</th>
-                                            <th scope="col">Vitamins</th>
                                             <th scope="col">Fiber</th>
+                                            <th scope="col">Vitamins</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -64,8 +64,8 @@
                                             <td id="Protein"></td>
                                             <td id="Carbs"></td>
                                             <td id="Fats"></td>
-                                            <td id="Vitamins"></td>
                                             <td id="Fiber"></td>
+                                            <td id="Vitamins"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -95,12 +95,12 @@
 
                         $('#foodName').text(data.name);
                         $('#foodImage').attr('src', `{{ asset('storage') }}/${data.image}`);
-                        $('#Calories').text(data.calories);
-                        $('#Protein').text(data.protein);
-                        $('#Carbs').text(data.carbs);
-                        $('#Fats').text(data.fats);
+                        $('#Calories').text(data.calories + ' kcal');
+                        $('#Protein').text(data.protein + ' g');
+                        $('#Carbs').text(data.carbs + ' g');
+                        $('#Fats').text(data.fats + ' g');
+                        $('#Fiber').text(data.fiber + ' g');
                         $('#Vitamins').text(data.vitamins);
-                        $('#Fiber').text(data.fiber);
                     },
                     error: function(xhr, status, error) {
                         alert("Failed to load food details. Please try again.");

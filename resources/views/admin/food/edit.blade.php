@@ -73,17 +73,6 @@
                                 @enderror
                             </div>
 
-                            {{-- Vitamins --}}
-                            <div class="col-5 mb-3">
-                                <label for="vitamins">Vitamins:</label>
-                                <input type="text" name="vitamins"
-                                    class="form-control @error('vitamins') is-invalid @enderror" id="vitamins"
-                                    value="{{ $food->vitamins }}" placeholder="Write slug" step="0.01">
-                                @error('vitamins')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-
                             {{-- Fiber --}}
                             <div class="col-5 mb-3">
                                 <label for="fiber">Fiber:</label>
@@ -91,6 +80,17 @@
                                     class="form-control @error('fiber') is-invalid @enderror" id="fiber"
                                     value="{{ $food->fiber }}" placeholder="Write fiber" step="0.01">
                                 @error('fiber')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            {{-- Vitamins --}}
+                            <div class="col-5 mb-3">
+                                <label for="vitamins">Vitamins:</label>
+                                <input type="text" name="vitamins"
+                                    class="form-control @error('vitamins') is-invalid @enderror" id="vitamins"
+                                    value="{{ $food->vitamins }}" placeholder="Write slug" step="0.01">
+                                @error('vitamins')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>

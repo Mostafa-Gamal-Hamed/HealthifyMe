@@ -10,7 +10,7 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        $categories = ['Cereals','Dairy products','Fruit','Meat','Vegetable'];
+        $categories = ['Cereals','Vegetable','Fruit','Dairy products','Meat','Fish'];
         foreach ($categories as $category) {
             Category::create(['name' => $category]);
         }

@@ -27,7 +27,8 @@ class FoodRequest extends FormRequest
             'protein'     => 'required|numeric',
             'carbs'       => 'required|numeric',
             'fats'        => 'required|numeric',
-            'vitamins'    => 'required|string',
+            'fiber'       => 'required|numeric',
+            'vitamins'    => 'nullable',
             'category_id' => 'required|exists:categories,id',
         ];
 
