@@ -129,7 +129,7 @@
                         @foreach ($blogs as $blog)
                             <div class="owl-item">
                                 <div class="card shadow shadow-lg">
-                                    <img src="{{ $blog->image ? asset("images/$blog->image") : asset('images/modern_logo.png') }}"
+                                    <img src="{{ $blog->image ? asset("storage/$blog->image") : asset('images/modern_logo.png') }}"
                                         class="card-img-top" alt="Blog">
                                     <div class="card-body">
                                         <h5 class="card-title text-center"><strong>{{ $blog->title }}</strong></h5>

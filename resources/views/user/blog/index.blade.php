@@ -23,7 +23,7 @@
             <div class="row align-items-center gap-3 justify-content-around" id="blogsContainer">
                 @foreach ($blogs as $blog)
                     <div class="card col-3" style="width: 18rem;">
-                        <img src="{{ $blog->image ? asset("images/$blog->image") : asset('images/modern_logo.png') }}"
+                        <img src="{{ $blog->image ? asset("storage/$blog->image") : asset('images/modern_logo.png') }}"
                             class="card-img-top" alt="Blog">
                         <div class="card-body">
                             <h5 class="card-title text-center"><strong>{{ $blog->title }}</strong></h5>

@@ -13,7 +13,7 @@
     <div class="container mb-5">
         <div class="titlepage mt-2">
             <div class="p-2 border m-auto" style="max-width: 90%;height: 90%;">
-                <img src="{{ $blog->image ? asset("images/$blog->image") : asset('images/modern_logo.png') }}"
+                <img src="{{ $blog->image ? asset("storage/$blog->image") : asset('images/modern_logo.png') }}"
                     alt="{{ $blog->title }}">
             </div>
             <h2 class="text-center mt-3">{{ $blog->title }}</h2>
@@ -21,7 +21,7 @@
 
         {{-- Description --}}
         <div class="p-3 shadow bg-light shadow-lg">
-            <h4>{{ $blog->desc }}</h4>
+            <h4>{!! $blog->desc !!}</h4>
             <div class="d-flex justify-content-between">
                 <p class="text-muted">By: {{ $blog->user->firstName }} {{ $blog->user->lastName }}</p>
                 <p class="text-muted">{{ $blog->created_at->diffForHumans() }}</p>

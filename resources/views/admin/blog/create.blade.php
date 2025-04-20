@@ -72,7 +72,7 @@
         tinymce.init({
             selector: '#desc',
             plugins: 'autoresize link image lists table code fullscreen',
-            toolbar: "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | forecolor backcolor removeformat | table media | lineheight outdent indent | charmap emoticons | code fullscreen preview | pagebreak anchor codesample | ltr rtl",
+            toolbar: "undo redo | link unlink | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | forecolor backcolor removeformat | table media | lineheight outdent indent | charmap emoticons | code fullscreen preview | pagebreak anchor codesample | ltr rtl",
             height: 200,
             menubar: false,
             toolbar_sticky: true,
