@@ -19,6 +19,10 @@ return new class extends Migration
             $table->float('height')->nullable();
             $table->enum('activity_level', ['low', 'moderate', 'high', 'professional'])->nullable();
             $table->integer('workout_hours_per_week')->default(0);
+            $table->float('bodyFat')->nullable();
+            $table->float('bodyWater')->nullable();
+            $table->text('diseases')->nullable();
+            $table->text('treatment')->nullable();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

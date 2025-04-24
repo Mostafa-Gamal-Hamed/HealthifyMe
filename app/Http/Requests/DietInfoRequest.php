@@ -28,6 +28,10 @@ class DietInfoRequest extends FormRequest
             'gender' => 'required|string',
             'activity_level' => 'required|string',
             'workout_hours_per_week' => 'required|numeric',
+            'bodyFat'   => 'required|numeric',
+            'bodyWater' => 'required|numeric',
+            'diseases'  => 'required|string',
+            'treatment' => 'required|string',
         ];
     }
 }

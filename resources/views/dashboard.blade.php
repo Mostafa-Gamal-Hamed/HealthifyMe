@@ -162,6 +162,18 @@
                         Workout hours per week : <span
                             class="fw-bold">{{ $dietInfo ? $dietInfo->workout_hours_per_week : '0' }}</span> hour
                     </div>
+                    <div class="col-2 rounded form-control" style="width: 48%;">
+                        Body fat : <span class="fw-bold">{{ $dietInfo ? $dietInfo->bodyFat : '0' }}</span> %
+                    </div>
+                    <div class="col-2 rounded form-control" style="width: 48%;">
+                        Body water : <span class="fw-bold">{{ $dietInfo ? $dietInfo->bodyWater : '0' }}</span> %
+                    </div>
+                    <div class="col-2 rounded form-control" style="width: 48%;">
+                        Diseases : <span class="fw-bold">{{ $dietInfo ? $dietInfo->diseases : '' }}</span>.
+                    </div>
+                    <div class="col-2 rounded form-control" style="width: 48%;">
+                        Treatment : <span class="fw-bold">{{ $dietInfo ? $dietInfo->treatment : '' }}</span>.
+                    </div>
                 </div>
 
 

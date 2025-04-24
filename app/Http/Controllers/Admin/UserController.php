@@ -23,7 +23,6 @@ class UserController extends Controller
     {
         $user      = User::findOrFail($id);
         $dietInfo  = $user->dietInfo;
-        $diets     = Diet::all();
 
         // BMR
         $bmr = null;
@@ -49,7 +48,7 @@ class UserController extends Controller
         $lose_1kg   = $tdee ? round($tdee - 1000) : null;
         $lose_1_5kg = $tdee ? round($tdee - 1500) : null;
 
-        return view("admin.user.show", compact("user", "dietInfo", "diets", "bmr", "tdee", "lose_05kg", "lose_1kg", "lose_1_5kg"));
+        return view("admin.user.show", compact("user", "dietInfo", "bmr", "tdee", "lose_05kg", "lose_1kg", "lose_1_5kg"));
     }
 
     public function status(string $type, $id)

@@ -13,6 +13,10 @@ class DietInfo extends Model
         'height',
         'activity_level',
         'workout_hours_per_week',
+        'bodyFat',
+        'bodyWater',
+        'diseases',
+        'treatment',
         'user_id',
     ];
 

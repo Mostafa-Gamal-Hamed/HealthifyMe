@@ -26,9 +26,10 @@
                 <div class="col">
                     <h5 class="border border-2">Email: {{ $user->email }}</h5>
                     <h5>Age: {{ $dietInfo ? $dietInfo->age : 0 }} years</h5>
-                    <h5 class="border border-2">Gender: {{ $dietInfo ? $dietInfo->gender : 0 }}
-                    </h5>
+                    <h5 class="border border-2">Gender: {{ $dietInfo ? $dietInfo->gender : 0 }}</h5>
                     <h5>Weight: {{ $dietInfo ? $dietInfo->weight : 0 }} kg</h5>
+                    <h5 class="border border-2">Body fat: {{ $dietInfo ? $dietInfo->bodyFat : 0 }}%</h5>
+                    <h5>Body water: {{ $dietInfo ? $dietInfo->bodyWater : 0 }}%</h5>
                 </div>
                 <div class="col">
                     <h5 class="border border-2">Height: {{ $dietInfo ? $dietInfo->height : 0 }} cm
@@ -37,7 +38,9 @@
                     <h5 class="border border-2">Workout hours per week:
                         {{ $dietInfo ? $dietInfo->workout_hours_per_week : 0 }} hour
                     </h5>
-                    <h5>Created At: {{ $dietInfo ? $dietInfo->created_at : 0 }}</h5>
+                    <h5>Diseases: {{ $dietInfo ? $dietInfo->diseases : 0 }}.</h5>
+                    <h5 class="border border-2">Treatment: {{ $dietInfo ? $dietInfo->treatment : 0 }}.</h5>
+                    <h5>Created At: {{ $dietInfo ? $dietInfo->created_at->format("h:i A d/m/Y") : 0 }}</h5>
                 </div>
             </div>
             <hr>
@@ -70,9 +73,9 @@
             <hr>
 
             {{-- Special diet --}}
-            <h3 class="text-center fw-bold mt-3">Special Diet</h3>
+            <h3 class="text-center fw-bold mt-3">User diets</h3>
             @if (!$user->specialDiet)
-                <p class="text-danger">No special diet yet.</p>
+                <p class="text-danger">No diets yet.</p>
             @else
                 <div class="owl-carousel p-3 d-block rounded text-light" style="background-color: #0a58ca;">
                     <div class="owl-stage-outer">
@@ -98,41 +101,6 @@
                     </div>
                 </div>
             @endif
-            <hr>
-
-            {{-- Diet --}}
-            <h3 class="text-center fw-bold mt-3">Diet</h3>
-            @if ($user->diets->isEmpty())
-                <p class="text-danger">No diet yet.</p>
-            @else
-                <h5>Diets:{{ count($user->diets) }}</h5>
-                <div class="owl-carousel p-3 d-block rounded text-light" style="background-color: #197c87;">
-                    <div class="owl-stage-outer">
-                        <div class="owl-stage">
-                            @foreach ($user->diets as $diet)
-                                <div class="owl-item">
-                                    <p>{{ $loop->iteration }}</p>
-                                    <h5>Name</h5>
-                                    <p>{{ $diet->name }}</p>
-                                    <h5>Description</h5>
-                                    <p class="p-2">{{ $diet->description }}</p>
-                                    <h5>Calories</h5>
-                                    <p>{{ $diet->calories }}</p>
-                                    <h5>Workouts</h5>
-                                    <p class="p-2">{{ $diet->workouts }}</p>
-                                    <h5>Created_at</h5>
-                                    <p>{{ $diet->created_at->format('d-m-Y') }}</p>
-                                    <form action="{{ route('admin.user.deleteDiet', $diet->id) }}" method="post">
-                                        @csrf
-                                        @method("DELETE")
-                                        <button type="submit" class="btn btn-sm btn-warning">Remove</button>
-                                    </form>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            @endif
         </div>
         <hr>
 
@@ -140,33 +108,9 @@
         <div class="shadow shadow-lg bg-light text-dark p-3 mb-5">
             <div class="d-flex flex-column justify-content-center">
                 @if ($user->status === 'active')
-                    {{-- Diet --}}
-                    <div class="col">
-                        <h3 class="text-center text-success fw-bold mb-3">Choose diet</h3>
-                        <form action="{{ route('admin.user.diet', $user->id) }}" method="post">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="selectDiet" class="form-label">Diets</label>
-                                <select class="form-select form-select-md @error('diet_id') is-invalid @enderror"
-                                    name="diet_id" id="selectDiet">
-                                    <option hidden>Select Diet</option>
-                                    @foreach ($diets as $diet)
-                                        <option value="{{ $diet->id }}">{{ $diet->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('diet_id')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <button type="submit" class="btn btn-md btn-primary px-4">Create</button>
-                        </form>
-                    </div>
-                    <hr>
-
                     {{-- Special diet --}}
                     <div class="col">
-                        <h3 class="text-center text-success fw-bold mb-3">Create special diet</h3>
+                        <h3 class="text-center text-success fw-bold mb-3">Create diet</h3>
                         <form action="{{ route('admin.specialDiet.store', "$user->id") }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
