@@ -1,8 +1,10 @@
 @extends('user.layout')
 
 @section('meta')
-    <meta name="keywords" content="healthifyme, healthy living, weight loss, calorie calculator, calorie tracker, meal planner, healthy eating, nutrition, diet plans, low-calorie meals, wellness, fitness, balanced diet, healthy lifestyle">
-    <meta name="description" content="Welcome to HealthifyMe — your personalized platform for diet plans, Discover delicious and nutritious healthy recipes, personalized diet plans, and smart calorie tracking tools to help you lose weight, eat better, and live healthier. Start your wellness journey with HealthifyMe today!">
+    <meta name="keywords"
+        content="healthifyme, healthy living, weight loss, calorie calculator, calorie tracker, meal planner, healthy eating, nutrition, diet plans, low-calorie meals, wellness, fitness, balanced diet, healthy lifestyle">
+    <meta name="description"
+        content="Welcome to HealthifyMe — your personalized platform for diet plans, Discover delicious and nutritious healthy recipes, personalized diet plans, and smart calorie tracking tools to help you lose weight, eat better, and live healthier. Start your wellness journey with HealthifyMe today!">
 @endsection
 
 @section('title')
@@ -27,25 +29,26 @@
             border-radius: 5%;
         }
 
-        .carousel-testimonial {
-            background-color: #adb5bd4d;
-        }
-
         .owl-carousel p {
             font-weight: bold;
+        }
+
+        .carousel-testimonial figure img{
+            width: 130px !important;
+            height: 110px !important;
         }
     </style>
 @endsection
 
 @section('body')
     {{-- Loader --}}
-    <div class="loader_bg">
+    {{-- <div class="loader_bg">
         <div class="loader">
             <div class="spinner-border text-success fs-3" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- Message --}}
     @include('message')
@@ -189,63 +192,58 @@
             <h2> <strong class="llow">Testi</strong>monial </h2>
         </div>
 
-        <div class="owl-carousel carousel-testimonial owl-theme owl-loaded">
+        <div class="owl-carousel carousel-testimonial py-5 owl-theme owl-loaded bg-success">
             <div class="owl-stage-outer">
-                <div class="owl-stage">
-                    <div class="owl-item d-flex flex-column align-items-center">
-                        <figure class="col">
-                            <img src="{{ asset('images/tes.jpg') }}" class="w-50 m-auto rounded-circle" alt="Testimonial">
+                <div class="owl-stage text-light">
+                    <div class="owl-item">
+                        <figure class="d-flex justify-content-center">
+                            <img src="{{asset('images/testimonial/1.jpg')}}" class="rounded-circle" alt="testimonial">
                         </figure>
-                        <div class="col text-center">
-                            <h3>Mostafa hamed</h3>
-                            <p>It is a long established fact that a reader will be distracted by the
-                                readable content of a page when looking at its layout. The point of
-                                using
-                                Lorem Ipsum is that it has a more-or-less normal distribution of
-                                letters, as
-                                opposed to using 'Content here, content here', making it look like
-                                readable
-                                English. Many desktop publishing packages and
-                            </p>
+                        <div class="text-center">
+                            <p class="fs-5 fst-italic">"I never thought losing weight could be this easy! Thanks to
+                                HealthifyMe, I finally found a meal plan that fits my busy lifestyle."</p>
+                            <h5 class="mt-3">— Sarah M., 29 years old</h5>
                         </div>
                     </div>
-                    <div class="owl-item d-flex flex-column align-items-center">
-                        <figure class="col">
-                            <img src="{{ asset('images/tes.jpg') }}" class="w-50 m-auto rounded-circle" alt="Testimonial">
+
+                    <div class="owl-item">
+                        <figure class="d-flex justify-content-center">
+                            <img src="{{asset('images/testimonial/3.jpg')}}" class="rounded-circle" alt="testimonial">
                         </figure>
-                        <div class="col text-center">
-                            <h3>Ahmed Ibrahim</h3>
-                            <p>It is a long established fact that a reader will be distracted by the
-                                readable content of a page when looking at its layout. The point of
-                                using
-                                Lorem Ipsum is that it has a more-or-less normal distribution of
-                                letters, as
-                                opposed to using 'Content here, content here', making it look like
-                                readable
-                                English. Many desktop publishing packages and
-                            </p>
+                        <div class="text-center">
+                            <p class="fs-5 fst-italic">"The calorie tracker and personalized diet plans helped me lose
+                                12 kg in just 4 months! I feel healthier, stronger, and more confident than ever."</p>
+                            <h5 class="mt-3">— Ahmed K., 34 years old</h5>
                         </div>
                     </div>
-                    <div class="owl-item d-flex flex-column align-items-center">
-                        <figure class="col">
-                            <img src="{{ asset('images/tes.jpg') }}" class="w-50 m-auto rounded-circle" alt="Testimonial">
+
+                    <div class="owl-item">
+                        <figure class="d-flex justify-content-center">
+                            <img src="{{asset('images/testimonial/2.jpg')}}" class="rounded-circle" alt="testimonial">
                         </figure>
-                        <div class="col text-center">
-                            <h3>Mona mahmoud</h3>
-                            <p>It is a long established fact that a reader will be distracted by the
-                                readable content of a page when looking at its layout. The point of
-                                using
-                                Lorem Ipsum is that it has a more-or-less normal distribution of
-                                letters, as
-                                opposed to using 'Content here, content here', making it look like
-                                readable
-                                English. Many desktop publishing packages and
-                            </p>
+                        <div class="text-center">
+                            <p class="fs-5 fst-italic">"The platform is super easy to use, and the advice feels
+                                personal, not generic. Highly recommend HealthifyMe to anyone serious about their
+                                health!"</p>
+                            <h5 class="mt-3">— Laura T., 25 years old</h5>
+                        </div>
+                    </div>
+
+                    <div class="owl-item">
+                        <figure class="d-flex justify-content-center">
+                            <img src="{{asset('images/testimonial/4.png')}}" class="rounded-circle" alt="testimonial">
+                        </figure>
+                        <div class="text-center">
+                            <p class="fs-5 fst-italic">"I love how the app suggests workouts tailored to my diet. It
+                                feels like having a personal trainer and nutritionist in my pocket!"</p>
+                            <h5 class="mt-3">— Omar S., 40 years old</h5>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </div>
 @endsection
 
@@ -256,7 +254,6 @@
             // Loader
             setTimeout(function() {
                 $('.loader_bg').fadeOut(500);
-                // $('.loader').css("display", "none");
             }, 1000);
 
             // Offer

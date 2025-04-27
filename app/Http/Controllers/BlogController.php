@@ -15,7 +15,7 @@ class BlogController extends Controller
         $offset = $request->input('offset', 0);
         $limit  = 9;
 
-        $blogs  = Blog::orderBy('id', 'desc')
+        $blogs  = Blog::latest()
             ->skip($offset)
             ->take($limit)
             ->get();

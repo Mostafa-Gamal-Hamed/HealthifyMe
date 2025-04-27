@@ -26,8 +26,7 @@ class DietRequest extends FormRequest
             "description" => "required|string",
             "calories"    => "required|integer",
             "workouts"    => "required|string",
-            "images"      => "array",
-            "images.*"    => "image|mimes:png,jpg,jpeg,gif",
+            "image"       => "nullable|image|mimes:png,jpg,jpeg,gif",
         ];
     }
 }

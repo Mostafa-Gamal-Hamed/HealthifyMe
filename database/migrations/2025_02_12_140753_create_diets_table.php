@@ -17,7 +17,7 @@ return new class extends Migration
             $table->longText('description');
             $table->integer('calories');
             $table->longText('workouts')->nullable();
-            $table->string('images')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

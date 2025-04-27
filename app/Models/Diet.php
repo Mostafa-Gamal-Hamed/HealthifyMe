@@ -11,7 +11,7 @@ class Diet extends Model
         'description',
         'calories',
         'workouts',
-        'images',
+        'image',
     ];
 
     // Relationships

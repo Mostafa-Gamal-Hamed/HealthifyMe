@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\AskForDietController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
-use App\Http\Controllers\Admin\DietController;
+use App\Http\Controllers\Admin\DietController as AdminDietController;
 use App\Http\Controllers\Admin\DietRequestController;
 use App\Http\Controllers\Admin\FoodController as AdminFoodController;
 use App\Http\Controllers\Admin\RecipeCategoryController;
@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SpecialDietController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserDietsController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\DietController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodController;
@@ -95,6 +96,14 @@ Route::controller(BlogController::class)->group(function () {
     Route::post('blog/like/{id}', 'like')->name("blog.like");
     // DisLike
     Route::post('blog/disLike/{id}', 'disLike')->name("blog.disLike");
+});
+
+// Diet
+Route::controller(DietController::class)->group(function () {
+    // Diets
+    Route::get('allDiets', 'index')->name("diet.diets");
+    // Show
+    Route::get('showDiet/{id}', 'show')->name("diet.show");
 });
 
 // Healthy recipe
@@ -196,7 +205,7 @@ Route::middleware(IsAdmin::class)->group(function () {
     });
 
     // Diet
-    Route::controller(DietController::class)->group(function () {
+    Route::controller(AdminDietController::class)->group(function () {
         // All diets
         Route::get('diets', 'index')->name("admin.diet.diets");
         // Edit

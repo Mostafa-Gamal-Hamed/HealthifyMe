@@ -56,11 +56,11 @@
                             @enderror
                         </div>
 
-                        {{-- Images --}}
+                        {{-- Image --}}
                         <div class="mb-3">
-                            <label for="images">Images</label>
-                            <input type="file" name="images[]" class="form-control @error('images') is-invalid @enderror"
-                                value="{{ old('images') }}" id="images" multiple accept=".jpg, .jpeg, .png, .gif">
+                            <label for="images">Image</label>
+                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
+                                value="{{ old('images') }}" id="image" multiple accept=".jpg, .jpeg, .png, .gif">
                             @error('images')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror

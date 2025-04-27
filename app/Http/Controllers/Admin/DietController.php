@@ -29,13 +29,9 @@ class DietController extends Controller
         $diet = new Diet();
         $diet->fill($request->validated());
 
-        // Store images and encode their paths as JSON
-        $imgArray = [];
-        if ($request->hasFile('images')) {
-            foreach ($diet->images as $image) {
-                $imgArray[] = Storage::putFile("diets", $image);
-            }
-            $diet->images = json_encode($imgArray);
+        if ($request->hasFile('image')) {
+            $imagePath   = $request->file('image')->store('diets', 'public');
+            $diet->image = $imagePath;
         }
 
         $diet->save();
@@ -55,30 +51,23 @@ class DietController extends Controller
         $diet = Diet::findOrFail($id);
 
         // Images
-        if ($request->hasFile("images")) {
+        if ($request->hasFile("image")) {
             // Remove old image
-            $oldImages = json_decode($diet->images);
-            if (!$oldImages) {
-                foreach ($oldImages as $oldImage) {
-                    Storage::delete($oldImage);
-                }
+            $oldImage = $diet->image;
+            if (!$oldImage) {
+                Storage::delete($oldImage);
             }
-
-            $imgArray = [];
-            foreach ($request->images as $image) {
-                $imgArray[] = Storage::putFile("diets", $image);
-            }
-            $newImages = json_encode($imgArray);
-        }else {
-            $newImages = $diet->images;
+            $newImage = Storage::putFile("diets", $request->validated()['image']);
+        } else {
+            $newImage = $diet->image;
         }
 
         $diet->update([
-            "name" => $request->validated()['name'],
+            "name"        => $request->validated()['name'],
             "description" => $request->validated()['description'],
-            "calories" => $request->validated()['calories'],
-            "workouts" => $request->validated()['workouts'],
-            "images" => $newImages,
+            "calories"    => $request->validated()['calories'],
+            "workouts"    => $request->validated()['workouts'],
+            "image"       => $newImage,
         ]);
 
         return redirect()->back()->with('success', 'Diet updated successfully');
@@ -89,10 +78,7 @@ class DietController extends Controller
         $diet = Diet::findOrFail($id);
 
         // Remove images
-        $images = json_decode($diet->images);
-        foreach ($images as $image) {
-            Storage::delete($image);
-        }
+        Storage::delete($diet->image);
 
         $diet->delete();
 

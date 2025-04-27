@@ -35,10 +35,12 @@
                 @endforeach
             </div>
 
-            <div id="showMoreBlogs"></div>
-            <div class="w-100 mt-3 text-center">
-                <button type="button" class="btn btn-primary px-5" id="moreBlogs">More</button>
-            </div>
+            @if (count($blogs) > 9)
+                <div id="showMoreBlogs"></div>
+                <div class="w-100 mt-3 text-center">
+                    <button type="button" class="btn btn-primary px-5" id="moreBlogs">More</button>
+                </div>
+            @endif
         @endif
     </div>
 @endsection

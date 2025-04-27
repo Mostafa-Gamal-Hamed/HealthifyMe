@@ -45,6 +45,14 @@
                     </a>
                 </li>
 
+                <!-- Diets -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('diet*') ? 'active fw-bold' : 'fw-medium' }}"
+                        href="{{ route('diet.diets') }}">
+                        Diets
+                    </a>
+                </li>
+
                 <!-- Healthy Recipes Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->is('healthy-recipes*') ? 'active fw-bold' : 'fw-medium' }}"

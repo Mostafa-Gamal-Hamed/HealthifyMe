@@ -60,26 +60,24 @@
 
                         {{-- oldImages --}}
                         <div class="mb-3">
-                            <label for="oldImages">Old Images:</label>
+                            <label for="oldImage">Old Image:</label>
                             <picture>
-                                @if ($diet->images)
-                                    @foreach (json_decode($diet->images) as $image)
-                                        <img data-featherlight="<img src='{{ asset("storage/$image") }}' style='max-width: 300px;' alt='oldImage'>"
-                                            src="{{ asset("storage/$image") }}" style="cursor: pointer;" width="100px"
-                                            alt="oldImage">
-                                    @endforeach
+                                @if ($diet->image)
+                                    <img data-featherlight="<img src='{{ asset("storage/$diet->image") }}' style='max-width: 300px;' alt='oldImage'>"
+                                        src="{{ asset("storage/$diet->image") }}" style="cursor: pointer;" width="100px"
+                                        alt="oldImage">
                                 @else
                                     <p>No images available.</p>
                                 @endif
                             </picture>
                         </div>
 
-                        {{-- Images --}}
+                        {{-- Image --}}
                         <div class="mb-3">
-                            <label for="images">New Images:</label>
-                            <input type="file" name="images[]" class="form-control @error('images') is-invalid @enderror"
-                                id="images" multiple accept=".jpg, .jpeg, .png, .gif">
-                            @error('images')
+                            <label for="image">New Image:</label>
+                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
+                                id="image" multiple accept=".jpg, .jpeg, .png, .gif">
+                            @error('image')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
