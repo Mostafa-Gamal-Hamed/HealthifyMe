@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
-            $table->integer('calories');
+            $table->string('calories');
             $table->longText('workouts')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();

@@ -40,7 +40,7 @@
                         {{-- Calories --}}
                         <div class="mb-3">
                             <label for="calories">Calories:</label>
-                            <input type="number" name="calories"
+                            <input type="text" name="calories"
                                 class="form-control @error('calories') is-invalid @enderror" value="{{ $diet->calories }}"
                                 id="calories" placeholder="Write calories">
                             @error('calories')

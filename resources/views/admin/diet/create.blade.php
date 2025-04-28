@@ -38,7 +38,7 @@
 
                         {{-- Calories --}}
                         <div class="form-floating mb-3">
-                            <input type="number" name="calories" class="form-control @error('calories') is-invalid @enderror"
+                            <input type="text" name="calories" class="form-control @error('calories') is-invalid @enderror"
                                 value="{{ old('calories') }}" id="calories" placeholder="Calories:">
                             <label for="calories">Calories</label>
                             @error('calories')

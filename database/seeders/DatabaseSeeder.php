@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             // DietInfoSeeder::class,
-            // BlogSeeder::class,
+            BlogSeeder::class,
             CategorySeeder::class,
             // FoodSeeder::class,
-            // DietSeeder::class,
+            DietSeeder::class,
             // SpecialDietSeeder::class,
             // ContactSeeder::class,
             // AskForDietSeeder::class,

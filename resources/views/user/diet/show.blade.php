@@ -14,9 +14,9 @@
 @section('body')
     <div class="container mb-5">
         <div class="namepage mt-2">
-            <div class="p-2 border m-auto" style="max-width: 90%;height: 90%;">
+            <div class="p-2 m-auto" style="max-width: 90%;height: 90%; text-align: center;">
                 <img src="{{ $diet->image ? asset("storage/$diet->image") : asset('images/diets/Diet.jpg') }}"
-                    alt="{{ $diet->name }}">
+                    class="w-50 rounded" alt="{{ $diet->name }}">
             </div>
             <h2 class="text-center mt-3">{{ $diet->name }}</h2>
         </div>

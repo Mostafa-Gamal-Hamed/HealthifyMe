@@ -24,7 +24,7 @@ class DietRequest extends FormRequest
         return [
             "name"        => "required|string|min:3|max:255",
             "description" => "required|string",
-            "calories"    => "required|integer",
+            "calories"    => "required|string",
             "workouts"    => "required|string",
             "image"       => "nullable|image|mimes:png,jpg,jpeg,gif",
         ];

@@ -12,9 +12,9 @@
 @section('body')
     <div class="container mb-5">
         <div class="titlepage mt-2">
-            <div class="p-2 border m-auto" style="max-width: 90%;height: 90%;">
+            <div class="p-2 m-auto" style="max-width: 90%;height: 90%;">
                 <img src="{{ $blog->image ? asset("storage/$blog->image") : asset('images/modern_logo.png') }}"
-                    alt="{{ $blog->title }}">
+                class="w-50 rounded" alt="{{ $blog->title }}">
             </div>
             <h2 class="text-center mt-3">{{ $blog->title }}</h2>
         </div>
