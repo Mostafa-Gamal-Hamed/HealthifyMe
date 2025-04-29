@@ -96,12 +96,12 @@
                 @guest
                     <li class="nav-item">
                         <a class="nav-link btn btn-outline-success px-3 py-1" href="{{ route('login') }}">
-                            Login
+                            Log in
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-success px-3 py-1" href="{{ route('register') }}">
-                            Sign Up
+                            Register
                         </a>
                     </li>
                 @endguest

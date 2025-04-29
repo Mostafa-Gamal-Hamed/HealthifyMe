@@ -31,8 +31,8 @@ use Illuminate\Support\Facades\Route;
 
 //// Home
 Route::controller(HomeController::class)->group(function () {
-    Route::get('/', 'home');
-    Route::get('home', 'home');
+    Route::get('/', 'home')->name('/');
+    Route::get('home', 'home')->name('home');
 });
 
 
@@ -155,7 +155,12 @@ Route::post('/store', [NewsletterController::class, 'store'])->name('newsletter.
 // Privacy Policy
 Route::get('PrivacyPolicy', function () {
     return view('user.pages.PrivacyPolicy');
-});
+})->name("PrivacyPolicy");
+
+// Terms of service
+Route::get('TermsOfService', function () {
+    return view('user.pages.TermsOfService');
+})->name("TermsOfService");
 
 
 //// Admin side

@@ -1,7 +1,8 @@
 <x-app-layout>
     @section('meta')
-    <meta name="keywords" content="health dashboard, user health profile, personal data, progress tracking, custom diet">
-    <meta name="description" content="Track your progress, update personal data, and access customized diet recommendations all in one place.">
+        <meta name="keywords" content="health dashboard, user health profile, personal data, progress tracking, custom diet">
+        <meta name="description"
+            content="Track your progress, update personal data, and access customized diet recommendations all in one place.">
     @endsection
 
     <x-slot name="header">
@@ -50,10 +51,14 @@
                     <div class="calories mb-4">
                         <p class="text-muted text-center">Calculating calories based on activity level</p>
                         <div class="row align-items-center justify-content-between gap-2 equationByActivity">
-                            <h5 class="col-md-4" style="width: 48%;">Total daily calories (TDEE): <span class="fw-bold">{{ $tdee }}</span> Calories</h5>
-                            <h5 class="col-md-4 text-end" style="width: 48%;">To lose 0.5 kg per week: <span class="fw-bold">{{ $lose_05kg }}</span> Calories per day</h5>
-                            <h5 class="col-md-4" style="width: 48%;">To lose 1 kg per week: <span class="fw-bold">{{ $lose_1kg }}</span> Calories per day</h5>
-                            <h5 class="col-md-4 text-end" style="width: 48%;">To lose 1.5 kg per week: <span class="fw-bold">{{ $lose_1_5kg }}</span> Calories per day</h5>
+                            <h5 class="col-md-4" style="width: 48%;">Total daily calories (TDEE): <span
+                                    class="fw-bold">{{ $tdee }}</span> Calories</h5>
+                            <h5 class="col-md-4 text-end" style="width: 48%;">To lose 0.5 kg per week: <span
+                                    class="fw-bold">{{ $lose_05kg }}</span> Calories per day</h5>
+                            <h5 class="col-md-4" style="width: 48%;">To lose 1 kg per week: <span
+                                    class="fw-bold">{{ $lose_1kg }}</span> Calories per day</h5>
+                            <h5 class="col-md-4 text-end" style="width: 48%;">To lose 1.5 kg per week: <span
+                                    class="fw-bold">{{ $lose_1_5kg }}</span> Calories per day</h5>
                         </div>
                     </div>
 
@@ -156,7 +161,8 @@
                         Height : <span class="fw-bold">{{ $dietInfo ? $dietInfo->height : '0' }}</span> cm
                     </div>
                     <div class="col-2 rounded form-control" style="width: 48%;">
-                        Activity level : <span class="fw-bold">{{ $dietInfo ? ucfirst($dietInfo->activity_level) : '0' }}</span>
+                        Activity level : <span
+                            class="fw-bold">{{ $dietInfo ? ucfirst($dietInfo->activity_level) : '0' }}</span>
                     </div>
                     <div class="col-2 rounded form-control" style="width: 48%">
                         Workout hours per week : <span

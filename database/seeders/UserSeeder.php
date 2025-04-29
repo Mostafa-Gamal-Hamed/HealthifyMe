@@ -11,15 +11,16 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'firstName' => 'Mostafa',
-            'lastName'  => 'Gamal',
-            'email'     => 'm@m.m',
+            'firstName'         => 'Mostafa',
+            'lastName'          => 'Gamal',
+            'email'             => 'm@m.m',
             'email_verified_at' => now(),
-            'password'  => bcrypt('Mm123456@'),
-            'role'      => 'superAdmin',
-            'status'    => 'active',
-            'created_at' => now(),
-            'updated_at' => now(),
+            'password'          => bcrypt('Mm123456@'),
+            'role'              => 'superAdmin',
+            'terms_accepted'    => true,
+            'status'            => 'active',
+            'created_at'        => now(),
+            'updated_at'        => now(),
         ]);
 
         User::create([
@@ -29,33 +30,36 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password'          => bcrypt('Mm123456@'),
             'role'              => 'admin',
+            'terms_accepted'    => true,
             'status'            => 'active',
             'created_at'        => now(),
             'updated_at'        => now(),
         ]);
 
         User::create([
-            'firstName' => 'ahmed',
-            'lastName'  => 'mohassen',
-            'email'     => 'ah@ah.ah',
+            'firstName'         => 'ahmed',
+            'lastName'          => 'mohassen',
+            'email'             => 'ah@ah.ah',
             'email_verified_at' => now(),
-            'password'  => bcrypt('Mm123456@'),
-            'role'      => 'doctor',
-            'status'    => 'inactive',
-            'created_at' => now(),
-            'updated_at' => now(),
+            'password'          => bcrypt('Mm123456@'),
+            'role'              => 'doctor',
+            'terms_accepted'    => true,
+            'status'            => 'inactive',
+            'created_at'        => now(),
+            'updated_at'        => now(),
         ]);
 
         User::create([
-            'firstName' => 'User',
-            'lastName'  => 'mohamed',
-            'email'     => 'user@example.com',
+            'firstName'         => 'User',
+            'lastName'          => 'mohamed',
+            'email'             => 'user@example.com',
             'email_verified_at' => now(),
-            'password'  => bcrypt('Mm123456@'),
-            'role'      => 'user',
-            'status'    => 'inactive',
-            'created_at' => now(),
-            'updated_at' => now(),
+            'password'          => bcrypt('Mm123456@'),
+            'role'              => 'user',
+            'terms_accepted'    => true,
+            'status'            => 'inactive',
+            'created_at'        => now(),
+            'updated_at'        => now(),
         ]);
     }
 }
