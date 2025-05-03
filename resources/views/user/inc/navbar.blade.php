@@ -54,7 +54,7 @@
                 </li>
 
                 <!-- Healthy Recipes Dropdown -->
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->is('healthy-recipes*') ? 'active fw-bold' : 'fw-medium' }}"
                         href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Healthy Recipes
@@ -63,13 +63,12 @@
                         @foreach ($recipeCategory as $category)
                             <li><a class="dropdown-item" href="{{ route('healthy-recipe.category', $category->name) }}">{{ $category->name }}</a></li>
                         @endforeach
+                        <hr class="dropdown-divider">
                         <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="{{ route('healthy-recipe.recipes') }}">See All Recipes</a>
+                            <a class="dropdown-item" href="{{ route('healthy-recipe.recipes') }}">See All Recipes</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <!-- Food Dropdown -->
                 <li class="nav-item dropdown">
@@ -81,6 +80,10 @@
                         @foreach ($foodCategory as $category)
                             <li><a class="dropdown-item" href="{{ route('food.type', "$category->name") }}">{{ $category->name }}</a></li>
                         @endforeach
+                        <hr class="dropdown-divider">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('food.foods') }}">See All</a>
+                        </li>
                     </ul>
                 </li>
 

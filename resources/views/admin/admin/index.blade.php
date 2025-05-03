@@ -1,20 +1,18 @@
 @extends('admin.layout')
 
-@section('title')
-    Admins
-@endsection
+@section('title', 'Admins')
 
 @section('body')
     <div class="p-3">
         {{-- Message --}}
         @include('admin.success')
-        
+
         <div class="shadow shadow-lg bg-light rounded h-100 p-4">
             @if ($admins->isEmpty())
                 <h3 class="mb-5 text-center text-danger">No admins found.</h3>
             @else
                 <div class="row justify-content-between align-items-center mb-4">
-                    <h6 class="col">Admins</h6>
+                    <h6 class="col">Admins managements</h6>
                     <form class="col" role="search">
                         <input class="form-control me-2" type="text" id="search" placeholder="Search by email or name"
                             aria-label="Search">
@@ -63,7 +61,7 @@
                                     <td>{{ $admin->email_verified_at ? $admin->email_verified_at->format('d-m-Y') : 'Not verified' }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.admin.show', $admin->id) }}" class="btn btn-md btn-success">
+                                        <a href="{{ route('admin.admin.show', $admin->id) }}" class="btn btn-sm btn-info">
                                             <i class="fa-solid fa-info"></i></i>
                                         </a>
                                     </td>
@@ -71,7 +69,7 @@
                                         <form action="{{ route('admin.admin.delete', $admin->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-md"
+                                            <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Are you sure?');">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
@@ -146,7 +144,7 @@
                                         <td>${createdAt}</td>
                                         <td>${verified || 'Not Verified'}</td>
                                         <td>
-                                            <a href="${show}" class="btn btn-md btn-success">
+                                            <a href="${show}" class="btn btn-sm btn-info">
                                                 <i class="fa-solid fa-info"></i></i>
                                             </a>
                                         </td>
@@ -154,7 +152,7 @@
                                             <form action="${remove}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-md"
+                                                <button type="submit" class="btn btn-danger btn-sm"
                                                     onclick="return confirm('Are you sure?');">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>

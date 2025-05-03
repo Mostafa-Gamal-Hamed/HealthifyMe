@@ -53,13 +53,13 @@
                                     </td>
                                     <td>{{ $blog->created_at->format('d-m-Y') }}</td>
                                     <td>
-                                        <a href="{{ route('admin.blog.show', $blog->id) }}" class="btn btn-md btn-info"
+                                        <a href="{{ route('admin.blog.show', $blog->id) }}" class="btn btn-sm btn-info"
                                             title="Show">
                                             <i class="fa-solid fa-info"></i></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-md btn-success"
+                                        <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-sm btn-success"
                                             title="Edit">
                                             <i class="fa-solid fa-edit"></i></i>
                                         </a>
@@ -68,7 +68,7 @@
                                         <form action="{{ route('admin.blog.delete', $blog->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-md"
+                                            <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Are you sure?');" title="Delete">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>

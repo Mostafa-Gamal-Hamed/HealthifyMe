@@ -10,11 +10,15 @@
         <div class="mb-3">
             <div class="d-flex justify-content-end gap-3">
                 <div style="display: none;" id="categoryForm">
-                    <form action="{{ route('admin.category.store') }}" method="post" class="d-flex gab-2 justify-content-end">
+                    <form action="{{ route('admin.category.store') }}" method="post" class="d-flex gab-2 justify-content-end" enctype="multipart/form-data">
                         @csrf
                         <div class="mx-2">
                             <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                                 id="name" aria-describedby="helpId" placeholder="Name">
+                        </div>
+                        <div class="mx-2">
+                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
+                                id="image">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Add</button>
@@ -26,6 +30,9 @@
                 </a>
             </div>
             @error('name')
+                <p class="text-end text-danger">{{ $message }}</p>
+            @enderror
+            @error('image')
                 <p class="text-end text-danger">{{ $message }}</p>
             @enderror
         </div>
@@ -44,6 +51,7 @@
                             <tr>
                                 <th scope="col">No.</th>
                                 <th scope="col">Name</th>
+                                <th scope="col">Image</th>
                                 <th scope="col">Created at</th>
                                 <th scope="col" colspan="3">Action</th>
                             </tr>
@@ -53,6 +61,11 @@
                                 <tr>
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->name }}</td>
+                                    <td>
+                                        <img src="{{ $category->image ? asset("storage/$category->image") : asset('images/foods/1-vegetable.jpg') }}"
+                                            class="rounded-circle" style="width:60px; cursor: pointer;" alt="{{ $category->image }}"
+                                            data-featherlight="<img src='{{ $category->image ? asset("storage/$category->image") : asset('images/foods/1-vegetable.jpg') }}' style='max-width:400px;'>">
+                                    </td>
                                     <td>{{ $category->created_at->format('d-m-Y') }}</td>
                                     <td>
                                         <a href="{{ route('admin.category.show', $category->id) }}"

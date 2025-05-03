@@ -34,72 +34,41 @@
                         </thead>
                         <tbody>
                             @foreach ($messages as $message)
-                                @if ($message->status === 'unread')
-                                    <tr class="table-warning">
-                                        <td scope="row">{{ $message->id }}</td>
-                                        <td>{{ $message->name }}</td>
-                                        <td>{{ $message->email }}</td>
-                                        <td>{{ $message->subject }}</td>
-                                        <td>
-                                            <span data-featherlight="<p>{{ $message->message }}</p>"
-                                                style="cursor: pointer;">
-                                                {{ Str::limit($message->message, 30, '...') }}
-                                            </span>
-                                        </td>
-                                        <td><span class="badge bg-warning text-dark">{{ $message->status }}</span></td>
-                                        <td>{{ $message->created_at->format('d-m-Y') }}</td>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('admin.contact.show', $message->id) }}"
-                                                class="btn btn-md btn-info">
-                                                <i class="fa-solid fa-info"></i></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <form action="{{ route('admin.contact.delete', $message->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-md"
-                                                    onclick="return confirm('Are you sure?');">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @else
-                                    <tr>
-                                        <td scope="row">{{ $message->id }}</td>
-                                        <td>{{ $message->name }}</td>
-                                        <td>{{ $message->email }}</td>
-                                        <td>{{ $message->subject }}</td>
-                                        <td>
-                                            <span data-featherlight="<p>{{ $message->message }}</p>"
-                                                style="cursor: pointer;">
-                                                {{ Str::limit($message->message, 30, '...') }}
-                                            </span>
-                                        </td>
-                                        <td><span class="badge bg-secondary">{{ $message->status }}</span></td>
-                                        <td>{{ $message->created_at->format('d-m-Y') }}</td>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('admin.user.show', $message->id) }}"
-                                                class="btn btn-md btn-success">
-                                                <i class="fa-solid fa-info"></i></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <form action="{{ route('admin.user.delete', $message->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-md"
-                                                    onclick="return confirm('Are you sure?');">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endif
-
+                                <tr>
+                                    <td scope="row">{{ $message->id }}</td>
+                                    <td>{{ $message->name }}</td>
+                                    <td>{{ $message->email }}</td>
+                                    <td>{{ $message->subject }}</td>
+                                    <td>
+                                        <span data-featherlight="<p>{{ $message->message }}</p>"
+                                            style="cursor: pointer;">
+                                            {{ Str::limit($message->message, 30, '...') }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge rounded-pill py-2 text-dark {{ $message->status === 'unread' ? 'bg-warning' : '' }}">
+                                            {{ $message->status }}
+                                        </span>
+                                    </td>
+                                    <td>{{ $message->created_at->format('d-m-Y') }}</td>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.contact.show', $message->id) }}"
+                                            class="btn btn-sm btn-info">
+                                            <i class="fa-solid fa-info"></i></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('admin.user.delete', $message->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Are you sure?');">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -137,11 +106,9 @@
                             var createdAt  = created_at.toLocaleDateString('en-GB');
 
                             if (email.status === 'unread') {
-                                var status = `<span class="badge bg-warning text-dark">${email.status}</span>`;
-                                var table  = `class="table-warning"`;
+                                var status = `<span class="badge rounded-pill py-2 text-dark bg-warning">${email.status}</span>`;
                             } else {
-                                var status = `<span class="badge bg-secondary">${email.status}</span>`;
-                                var table  = '';
+                                var status = `<span class="badge rounded-pill py-2 text-dark">${email.status}</span>`;
                             }
 
                             var message = `
@@ -154,7 +121,7 @@
                             var remove = `{{ url('deleteSentMessage') }}/${email.id}`;
 
                             body.append(`
-                                <tr ${table}>
+                                <tr>
                                     <td>${email.id}</td>
                                     <td>${email.name}</td>
                                     <td>${email.email}</td>
@@ -163,7 +130,7 @@
                                     <td>${status}</td>
                                     <td>${createdAt}</td>
                                     <td>
-                                        <a href="${show}" class="btn btn-md btn-success">
+                                        <a href="${show}" class="btn btn-sm btn-info">
                                             <i class="fa-solid fa-info"></i></i>
                                         </a>
                                     </td>
@@ -171,7 +138,7 @@
                                         <form action="${remove}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-md"
+                                            <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Are you sure?');">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
