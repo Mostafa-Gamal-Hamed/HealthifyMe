@@ -1,8 +1,6 @@
 @extends('admin.layout')
 
-@section('title')
-    Blogs
-@endsection
+@section('title', 'Blogs')
 
 @section('body')
     <div class="p-3">
@@ -25,13 +23,13 @@
                     <table class="table text-center" id="showTable">
                         <thead>
                             <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Slug</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Created at</th>
-                                <th scope="col" colspan="3">Action</th>
+                                <th>No.</th>
+                                <th>Title</th>
+                                <th>Slug</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                                <th>Created at</th>
+                                <th colspan="3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,35 +39,37 @@
                                     <td>{{ $blog->title }}</td>
                                     <td>{{ $blog->slug }}</td>
                                     <td>
-                                        <span data-featherlight="<p>{{ $blog->desc }}</p>" style="cursor: pointer;">
-                                            {!! Str::limit($blog->desc, 40, '...') !!}
+                                        <span
+                                            data-featherlight="{{ '<p>' . e($blog->desc) . '</p>' }}"
+                                            style="cursor: pointer;">
+                                            {{ Str::limit(strip_tags($blog->desc), 40, '...') }}
                                         </span>
                                     </td>
                                     <td>
-                                        <img src="{{ $blog->image ? asset("storage/$blog->image") : asset('images/modern_logo.png') }}"
+                                        <img
+                                            src="{{ $blog->image ? asset("storage/$blog->image") : asset('images/modern_logo.png') }}"
                                             data-featherlight="<img src='{{ $blog->image ? asset("storage/$blog->image") : asset('images/modern_logo.png') }}' width='300px' alt='Blog'>"
-                                            style="cursor: pointer;" class="img-fluid rounded-circle" width="80px"
-                                            alt="Blog">
+                                            style="cursor: pointer;"
+                                            class="rounded-circle"
+                                            width="80px"
+                                            alt="Blog Image">
                                     </td>
                                     <td>{{ $blog->created_at->format('d-m-Y') }}</td>
                                     <td>
-                                        <a href="{{ route('admin.blog.show', $blog->id) }}" class="btn btn-sm btn-info"
-                                            title="Show">
-                                            <i class="fa-solid fa-info"></i></i>
+                                        <a href="{{ route('admin.blog.show', $blog->id) }}" class="btn btn-sm btn-info" title="Show">
+                                            <i class="fa-solid fa-info"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-sm btn-success"
-                                            title="Edit">
-                                            <i class="fa-solid fa-edit"></i></i>
+                                        <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-sm btn-success" title="Edit">
+                                            <i class="fa-solid fa-edit"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <form action="{{ route('admin.blog.delete', $blog->id) }}" method="POST">
+                                        <form action="{{ route('admin.blog.delete', $blog->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Are you sure?');" title="Delete">
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Delete">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
@@ -78,6 +78,7 @@
                             @endforeach
                         </tbody>
                     </table>
+
                 </div>
             @endif
         </div>

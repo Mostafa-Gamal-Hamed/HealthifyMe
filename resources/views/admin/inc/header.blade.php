@@ -25,6 +25,7 @@
 
     {{-- jQuery --}}
     <script src="{{ asset('js/jQuery.js') }}"></script>
+    <script src="{{ asset('js/sweetAlert.js') }}"></script>
     @yield('jquery')
 </head>
 

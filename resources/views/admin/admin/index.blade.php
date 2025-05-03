@@ -26,6 +26,7 @@
                                 <th scope="col">ID.</th>
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
+                                <th scope="col">Role</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Joined at</th>
@@ -39,6 +40,7 @@
                                     <td scope="row">{{ $admin->id }}</td>
                                     <td>{{ $admin->firstName }}</td>
                                     <td>{{ $admin->lastName }}</td>
+                                    <td>{{ $admin->role }}</td>
                                     <td>{{ $admin->email }}</td>
                                     @if ($admin->status == 'active')
                                         <td>
@@ -139,6 +141,7 @@
                                         <td scope="row">${admin.id}</td>
                                         <td>${admin.firstName}</td>
                                         <td>${admin.lastName}</td>
+                                        <td>${admin.role}</td>
                                         <td>${admin.email}</td>
                                         <td>${status}</td>
                                         <td>${createdAt}</td>
