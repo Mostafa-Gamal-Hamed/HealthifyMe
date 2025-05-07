@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description');
             $table->string('calories');
+            $table->float('protein')->default(0);
+            $table->float('carbs')->default(0);
+            $table->float('fats')->default(0);
             $table->longText('workouts')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();

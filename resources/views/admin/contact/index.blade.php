@@ -11,7 +11,7 @@
                 <h3 class="mb-5 text-center text-danger">No messages found.</h3>
             @else
                 <div class="row justify-content-between align-items-center mb-4">
-                    <h6 class="col">Messages</h6>
+                    <h4 class="col fw-bold text-primary">Messages management</h4>
                     <form class="col" role="search">
                         <input class="form-control me-2" type="text" id="search" placeholder="Search by email"
                             aria-label="Search">
@@ -72,6 +72,14 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{-- Pagination --}}
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <div class="text-muted">
+                            Showing {{ $messages->firstItem() }} to {{ $messages->lastItem() }} of
+                            {{ $messages->total() }} entries
+                        </div>
+                        {{ $messages->appends(request()->input())->links() }}
+                    </div>
                 </div>
             @endif
         </div>

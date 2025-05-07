@@ -1,38 +1,44 @@
 @extends('admin.layout')
 
-@section('title')
-    {{ $category->name }}
-@endsection
+@section('title', $category->name)
 
 @section('body')
-    <div class="container-fluid mb-5">
-        <h2 class="text-center text-success fw-bold mt-3 mb-3">{{ $category->name }}</h2>
+<div class="container-fluid mb-5">
+    <h2 class="text-center text-success fw-bold my-4">{{ $category->name }}</h2>
 
-        <div class="shadow shadow-lg bg-light text-dark p-3 mb-5">
-            <form action="{{ route('admin.category.update', $category->id) }}" method="post" class="text-center" enctype="multipart/form-data">
+    <div class="card shadow-lg border-0 bg-white">
+        <div class="card-body px-5 py-4">
+            <form action="{{ route('admin.category.update', $category->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+
                 {{-- Name --}}
-                <div class="mb-3">
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                        id="name" value="{{ $category->name }}" placeholder="Category name">
+                <div class="mb-4">
+                    <label for="name" class="form-label fw-semibold">Category Name</label>
+                    <input type="text" name="name" id="name"
+                        class="form-control @error('name') is-invalid @enderror"
+                        value="{{ old('name', $category->name) }}" placeholder="Enter category name">
                     @error('name')
-                        <p class="text-danger">{{ $message }}</p>
+                        <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
 
                 {{-- Image --}}
-                <div class="mb-3">
-                    <img src="{{ asset("storage/$category->image") }}" class="mb-3" width="100px" alt="$category->image">
-                    <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
-                        id="image">
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Current Image</label><br>
+                    <img src="{{ asset("storage/$category->image") }}" class="mb-3 rounded border" width="120px" alt="Category Image">
+                    <input type="file" name="image" id="image"
+                        class="form-control @error('image') is-invalid @enderror">
                     @error('image')
-                        <p class="text-danger">{{ $message }}</p>
+                        <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-md px-5 btn-success">Update</button>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success px-4">Update</button>
+                </div>
             </form>
         </div>
     </div>
+</div>
 @endsection

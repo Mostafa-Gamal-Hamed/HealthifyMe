@@ -66,6 +66,9 @@ class DietController extends Controller
             "name"        => $request->validated()['name'],
             "description" => $request->validated()['description'],
             "calories"    => $request->validated()['calories'],
+            "protein"     => $request->validated()['protein'],
+            "carbs"       => $request->validated()['carbs'],
+            "fat"         => $request->validated()['fat'],
             "workouts"    => $request->validated()['workouts'],
             "image"       => $newImage,
         ]);

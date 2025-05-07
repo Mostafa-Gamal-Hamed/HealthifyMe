@@ -1,13 +1,9 @@
 @extends('admin.layout')
 
-@section('title')
-    Recipes
-@endsection
+@section('title', 'Recipes')
 
 @section('body')
     <div class="p-3">
-        <h2 class="text-center mb-3 text-success fw-bold">All recipes</h2>
-
         {{-- Message --}}
         @include('admin.success')
 
@@ -16,7 +12,8 @@
                 <h3 class="mb-5 text-center text-danger">No recipes found.</h3>
             @else
                 {{-- search --}}
-                <form class="d-flex justify-content-end mb-3 p-2" role="search">
+                <form class="d-flex justify-content-between mb-3 p-2" role="search">
+                    <h4 class="col fw-bold text-primary">recipes management</h4>
                     <input class="form-control w-50" type="text" id="search" placeholder="Search by title"
                         aria-label="Search">
                 </form>
@@ -27,13 +24,12 @@
                     <table class="table text-center" id="showTable">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Calories</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Created</th>
-                                <th scope="col" colspan="2">Action</th>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Calories</th>
+                                <th>Created at</th>
+                                <th colspan="3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,18 +44,23 @@
                                         </span>
                                     </td>
                                     <td>{{ $recipe->calories }}</td>
-                                    <td>{{ $recipe->status }}</td>
                                     <td>{{ $recipe->created_at->format('d-m-Y') }}</td>
                                     <td>
-                                        <a href="{{ route('admin.recipe.show', $recipe->id) }}" class="btn btn-md btn-info" title="Details">
+                                        <a href="{{ route('admin.recipe.show', $recipe->id) }}" class="btn btn-sm btn-info" title="Details">
                                             <i class='fa-solid fa-info'></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.recipe.edit', $recipe->id) }}"
+                                            class="btn btn-sm btn-success" title="Edit">
+                                            <i class="fa-solid fa-edit"></i></i>
                                         </a>
                                     </td>
                                     <td>
                                         <form action="{{ route('admin.recipe.delete', $recipe->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-md"
+                                            <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Are you sure?');">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
@@ -69,6 +70,14 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{-- Pagination --}}
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <div class="text-muted">
+                            Showing {{ $recipes->firstItem() }} to {{ $recipes->lastItem() }} of
+                            {{ $recipes->total() }} entries
+                        </div>
+                        {{ $recipes->appends(request()->input())->links() }}
+                    </div>
                 </div>
             @endif
         </div>

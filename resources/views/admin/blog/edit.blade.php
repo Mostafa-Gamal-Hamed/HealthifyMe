@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title', 'Edit: ' . $blog->title)
+@section('title', "Edit: $blog->title")
 
 @section('style')
     <style>

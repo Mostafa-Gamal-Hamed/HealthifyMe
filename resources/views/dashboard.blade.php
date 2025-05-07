@@ -175,10 +175,13 @@
                         Body water : <span class="fw-bold">{{ $dietInfo ? $dietInfo->bodyWater : '0' }}</span> %
                     </div>
                     <div class="col-2 rounded form-control" style="width: 48%;">
-                        Diseases : <span class="fw-bold">{{ $dietInfo ? $dietInfo->diseases : '' }}</span>.
+                        Target : <span class="fw-bold">{{ $dietInfo ? $dietInfo->target : '0' }}</span>
                     </div>
                     <div class="col-2 rounded form-control" style="width: 48%;">
                         Treatment : <span class="fw-bold">{{ $dietInfo ? $dietInfo->treatment : '' }}</span>.
+                    </div>
+                    <div class="col-2 rounded form-control" style="width: 100%;">
+                        Diseases : <span class="fw-bold">{{ $dietInfo ? $dietInfo->diseases : '' }}</span>.
                     </div>
                 </div>
 

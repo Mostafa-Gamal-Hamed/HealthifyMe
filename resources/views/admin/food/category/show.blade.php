@@ -1,46 +1,56 @@
 @extends('admin.layout')
 
-@section('title')
-    {{ $category->name }}
-@endsection
+@section('title', $category->name)
 
 @section('body')
-    <div class="container-fluid mb-5">
-        <h2 class="text-center text-success fw-bold mt-3 mb-3">{{ $category->name }}</h2>
+<div class="container-fluid mb-5">
+    <h2 class="text-center text-success fw-bold my-4">{{ $category->name }}</h2>
 
-        <div class="shadow shadow-lg bg-light text-dark p-3 mb-5">
-            <div class="p-4">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="fw-bold">Category foods:</h4>
-                    <h5 class="text-muted">Total: {{ count($category->foods) }}</h5>
-                </div>
-                <div class="row gap-2 justify-content-around mb-3">
-                    @foreach ($category->foods as $food)
-                        <div class="col-3">
-                            {{ $loop->iteration }}- <a href="{{ route('admin.food.show', $food->id ) }}" style="margin-right: 5px;">{{ $food->name }}</a>
-                            <span>Date: {{ $food->created_at->format('d/m/Y') }}</span>
-                        </div>
-                    @endforeach
-                </div>
-                <p class="text-end text-muted">Created at: {{ $category->created_at->format('d/m/Y') }}</p>
-                <hr>
-                <div class="d-flex">
+    <div class="card shadow-lg border-0 bg-white">
+        <div class="card-body px-5 py-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold mb-0">Category Foods</h4>
+                <span class="text-muted">Total: {{ $category->foods->count() }}</span>
+            </div>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-4">
+                @forelse ($category->foods as $food)
                     <div class="col">
-                        <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-md btn-success w-75"
-                            title="Edit">
-                            <i class="fa-solid fa-edit"></i></i>
-                        </a>
+                        <div class="border rounded p-3 h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <h6 class="fw-semibold mb-2">{{ $loop->iteration }}.
+                                    <a href="{{ route('admin.food.show', $food->id) }}" class="text-decoration-none">
+                                        {{ $food->name }}
+                                    </a>
+                                </h6>
+                                <p class="mb-0 text-muted">Date: {{ $food->created_at->format('d/m/Y') }}</p>
+                            </div>
+                        </div>
                     </div>
-                    <form action="{{ route('admin.category.secondDelete', $category->id) }}" method="POST" class="col">
+                @empty
+                    <div class="col-12 text-center text-muted">
+                        No foods found in this category.
+                    </div>
+                @endforelse
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                <small class="text-muted">Created at: {{ $category->created_at->format('d/m/Y') }}</small>
+                <div class="d-flex gap-2">
+                    <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-success btn-sm" title="Edit">
+                        <i class="fa-solid fa-edit"></i>
+                    </a>
+                    <form action="{{ route('admin.category.secondDelete', $category->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-md w-75"
-                            onclick="return confirm('Are you sure?');" title="Delete">
+                        <button type="submit" class="btn btn-danger btn-sm" title="Delete">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
+</div>
 @endsection

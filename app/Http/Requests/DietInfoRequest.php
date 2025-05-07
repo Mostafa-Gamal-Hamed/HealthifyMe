@@ -26,10 +26,11 @@ class DietInfoRequest extends FormRequest
             'weight' => 'required|numeric',
             'height' => 'required|numeric',
             'gender' => 'required|string',
-            'activity_level' => 'required|string',
+            'activity_level' => 'required|in:low,moderate,high,professional',
             'workout_hours_per_week' => 'required|numeric',
             'bodyFat'   => 'required|numeric',
             'bodyWater' => 'required|numeric',
+            'target'    => 'required|in:weight loss,weight stabilization,weight gain,increased muscle',
             'diseases'  => 'required|string',
             'treatment' => 'required|string',
         ];

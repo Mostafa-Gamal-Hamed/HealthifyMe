@@ -1,141 +1,211 @@
 @extends('admin.layout')
 
-@section('title')
-    {{ $food->name }}
+@section('title', "Edit: $food->name")
+
+@section('style')
+    <style>
+        .food-edit-container {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-floating label {
+            transition: all 0.2s ease;
+        }
+
+        .image-preview-container {
+            margin-top: 15px;
+        }
+
+        .current-image {
+            max-width: 265px;
+            max-height: 200px;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .current-image:hover {
+            transform: scale(1.03);
+        }
+
+        .nutrition-input {
+            position: relative;
+        }
+
+        .input-unit {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+    </style>
 @endsection
 
 @section('body')
-    <div class="container-fluid mb-5">
-        <h2 class="text-center text-success fw-bold mt-3 mb-3">{{ $food->name }}</h2>
+    <div class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-center text-success fw-bold mb-4">Edit {{ $food->name }}</h2>
 
-        {{-- Message --}}
-        @include('admin.success')
+                @include('admin.success')
 
-        <div class="shadow shadow-lg bg-light text-dark p-3 mb-5">
-            <div class="row justify-content-center">
-                <div class="col">
-                    <form action="{{ route('admin.food.update', $food->id) }}" method="post" enctype="multipart/form-data">
+                <div class="food-edit-container p-4 mb-5">
+                    <form action="{{ route('admin.food.update', $food->id) }}" method="POST" enctype="multipart/form-data"
+                        id="foodEditForm">
                         @csrf
                         @method('PUT')
-                        <div class="row gap-2 justify-content-between align-items-center">
-                            {{-- Name --}}
-                            <div class="col-5 mb-3">
-                                <label for="name">Name:</label>
-                                <input type="text" name="name"
-                                    class="form-control @error('name') is-invalid @enderror" id="name"
-                                    value="{{ $food->name }}" placeholder="Write name">
-                                @error('name')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
+
+                        <div class="row g-3">
+                            {{-- Food Name --}}
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" name="name"
+                                        class="form-control @error('name') is-invalid @enderror" id="name"
+                                        value="{{ old('name', $food->name) }}" placeholder="Food name" required>
+                                    <label for="name">Food Name</label>
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
-                            {{-- Calories --}}
-                            <div class="col-5 mb-3">
-                                <label for="calories">Calories:</label>
-                                <input type="number" name="calories"
-                                    class="form-control @error('calories') is-invalid @enderror" id="calories"
-                                    value="{{ $food->calories }}" placeholder="Write calories" step="0.01">
-                                @error('calories')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            {{-- Protein --}}
-                            <div class="col-5 mb-3">
-                                <label for="protein">Protein:</label>
-                                <input type="number" name="protein"
-                                    class="form-control @error('protein') is-invalid @enderror" id="protein"
-                                    value="{{ $food->protein }}" placeholder="Write protein" step="0.01">
-                                @error('protein')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            {{-- Carbs --}}
-                            <div class="col-5 mb-3">
-                                <label for="carbs">Carbs:</label>
-                                <input type="number" name="carbs"
-                                    class="form-control @error('carbs') is-invalid @enderror" id="carbs"
-                                    value="{{ $food->carbs }}" placeholder="Write carbs" step="0.01">
-                                @error('carbs')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            {{-- Fats --}}
-                            <div class="col-5 mb-3">
-                                <label for="fats">Fats:</label>
-                                <input type="number" name="fats"
-                                    class="form-control @error('fats') is-invalid @enderror" id="fats"
-                                    value="{{ $food->fats }}" placeholder="Write fats" step="0.01">
-                                @error('fats')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            {{-- Fiber --}}
-                            <div class="col-5 mb-3">
-                                <label for="fiber">Fiber:</label>
-                                <input type="number" name="fiber"
-                                    class="form-control @error('fiber') is-invalid @enderror" id="fiber"
-                                    value="{{ $food->fiber }}" placeholder="Write fiber" step="0.01">
-                                @error('fiber')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            {{-- Vitamins --}}
-                            <div class="col-5 mb-3">
-                                <label for="vitamins">Vitamins:</label>
-                                <input type="text" name="vitamins"
-                                    class="form-control @error('vitamins') is-invalid @enderror" id="vitamins"
-                                    value="{{ $food->vitamins }}" placeholder="Write slug" step="0.01">
-                                @error('vitamins')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
+                            {{-- Nutrition Information --}}
+                            @foreach ([['name' => 'calories', 'label' => 'Calories', 'value' => $food->calories, 'unit' => 'kcal', 'required' => true], ['name' => 'protein', 'label' => 'Protein', 'value' => $food->protein, 'unit' => 'g', 'required' => true], ['name' => 'carbs', 'label' => 'Carbs', 'value' => $food->carbs, 'unit' => 'g', 'required' => true], ['name' => 'fats', 'label' => 'Fats', 'value' => $food->fats, 'unit' => 'g', 'required' => true], ['name' => 'fiber', 'label' => 'Fiber', 'value' => $food->fiber, 'unit' => 'g', 'required' => false], ['name' => 'vitamins', 'label' => 'Vitamins', 'value' => $food->vitamins, 'unit' => '', 'required' => false]] as $field)
+                                <div class="col-md-6">
+                                    <div class="form-floating @if ($field['unit']) nutrition-input @endif">
+                                        <input type="{{ $field['name'] === 'vitamins' ? 'text' : 'number' }}"
+                                            name="{{ $field['name'] }}"
+                                            class="form-control @error($field['name']) is-invalid @enderror"
+                                            value="{{ old($field['name'], $field['value']) }}" id="{{ $field['name'] }}"
+                                            placeholder="{{ $field['label'] }}" step="0.01"
+                                            @if ($field['required']) required @endif>
+                                        <label for="{{ $field['name'] }}">{{ $field['label'] }}</label>
+                                        @if ($field['unit'])
+                                            <span class="input-unit">{{ $field['unit'] }}</span>
+                                        @endif
+                                        @error($field['name'])
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endforeach
 
                             {{-- Category --}}
-                            <div class="input-group col-5 mb-3">
-                                <label class="input-group-text" for="inputGroupSelect01">Category</label>
-                                <select name="category_id" class="form-select" id="inputGroupSelect01">
-                                    <option value="{{ $food->category->id }}" hidden>{{ $food->category->name }}</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select name="category_id"
+                                        class="form-select @error('category_id') is-invalid @enderror" id="category_id"
+                                        required>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                {{ old('category_id', $food->category_id) == $category->id ? 'selected' : '' }}>
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <label for="category_id">Category</label>
+                                    @error('category_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
-                            {{-- oldImages --}}
-                            <div class="col-5 mb-3">
-                                <label for="oldImages">Old Images:</label>
-                                <picture>
+                            {{-- Current Image --}}
+                            <div class="col-md-6">
+                                <label class="form-label">Current Image</label>
+                                <div class="image-preview-container">
                                     @if ($food->image)
-                                        <img data-featherlight="<img src='{{ asset("storage/$food->image") }}' style='max-width: 300px;' alt='oldImage'>"
-                                            src="{{ asset("storage/$food->image") }}" style="cursor: pointer;"
-                                            width="100px" alt="oldImage">
+                                        <img src="{{ asset('storage/' . $food->image) }}" class="current-image"
+                                            id="currentImage" alt="Current food image"
+                                            onclick="window.open('{{ asset('storage/' . $food->image) }}', '_blank')">
                                     @else
-                                        <p class="text-danger fw-bold">No image available.</p>
+                                        <div class="alert alert-warning">No image available</div>
                                     @endif
-                                </picture>
+                                </div>
                             </div>
 
-                            {{-- Image --}}
-                            <div class="col-5 mb-3">
-                                <label for="image">Image:</label>
+                            {{-- New Image --}}
+                            <div class="col-md-6">
+                                <label for="image" class="form-label">New Image</label>
                                 <input type="file" name="image"
-                                    class="form-control @error('image') is-invalid @enderror" id="image" multiple
-                                    accept=".jpg, .jpeg, .png, .gif">
+                                    class="form-control @error('image') is-invalid @enderror" id="image"
+                                    accept="image/*" onchange="previewNewImage(this)">
                                 @error('image')
-                                    <p class="text-danger">{{ $message }}</p>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                <small class="text-muted d-block">Leave empty to keep current image</small>
+                                <img id="newImagePreview" class="image-preview mt-2" style="display: none;"
+                                    alt="New image preview">
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-md px-5 btn-success">Update</button>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a href="{{ route('admin.food.foods') }}" class="btn btn-outline-secondary me-md-2 px-4">
+                                <i class="fas fa-arrow-left me-2"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success px-4">
+                                <i class="fas fa-save me-2"></i> Update Food
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        // Preview new image before upload
+        function previewNewImage(input) {
+            const preview = document.getElementById('newImagePreview');
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    preview.style.width = '265px';
+                }
+
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+
+        // Form validation
+        document.getElementById('foodEditForm').addEventListener('submit', function(e) {
+            const name = document.getElementById('name').value.trim();
+            const calories = document.getElementById('calories').value.trim();
+            const category = document.getElementById('category_id').value;
+
+            if (!name) {
+                e.preventDefault();
+                alert('Please enter a name for the food');
+                document.getElementById('name').focus();
+                return;
+            }
+
+            if (!calories) {
+                e.preventDefault();
+                alert('Please specify the calorie count');
+                document.getElementById('calories').focus();
+                return;
+            }
+
+            if (!category) {
+                e.preventDefault();
+                alert('Please select a category');
+                document.getElementById('category_id').focus();
+                return;
+            }
+        });
+    </script>
 @endsection

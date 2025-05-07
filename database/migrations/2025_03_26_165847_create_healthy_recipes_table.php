@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description');
-            $table->integer('calories')->nullable();
+            $table->string('calories')->nullable();
+            $table->float('protein')->default(0);
+            $table->float('carbs')->default(0);
+            $table->float('fats')->default(0);
             $table->longText('images')->nullable();
             $table->string('video')->nullable();
             $table->foreignId('recipe_category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');

@@ -1,8 +1,6 @@
 @extends('admin.layout')
 
-@section('title')
-    Diet Requests
-@endsection
+@section('title', 'Diet Requests')
 
 @section('body')
     <div class="p-3">
@@ -43,7 +41,7 @@
                                     <td>{{ $request->accept == 0 ? 'no' : 'yes' }}</td>
                                     <td>{{ $request->created_at->format('d-m-Y') }}</td>
                                     <td>
-                                        <a href="{{ route('admin.user.show', $request->user->id) }}" class="btn btn-md btn-success">
+                                        <a href="{{ route('admin.user.show', $request->user->id) }}" class="btn btn-sm btn-info">
                                             <i class="fa-solid fa-info"></i></i>
                                         </a>
                                     </td>
@@ -51,7 +49,7 @@
                                         <form action="{{ route('admin.dietRequests.delete', $request->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-md"
+                                            <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Are you sure?');">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>

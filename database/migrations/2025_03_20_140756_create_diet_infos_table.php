@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('workout_hours_per_week')->default(0);
             $table->float('bodyFat')->nullable();
             $table->float('bodyWater')->nullable();
+            $table->enum('target', ['weight loss','weight stabilization','weight gain','increased muscle'])->nullable();
             $table->text('diseases')->nullable();
             $table->text('treatment')->nullable();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');

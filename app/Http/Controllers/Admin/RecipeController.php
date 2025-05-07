@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RecipeRequest;
 use App\Models\HealthyRecipe;
+use App\Models\RecipeCategory;
 use App\Models\RecipeLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,8 @@ class RecipeController extends Controller
 
     public function create()
     {
-        return view("admin.recipe.create");
+        $categories = RecipeCategory::all();
+        return view("admin.recipe.create", compact("categories"));
     }
 
     public function store(RecipeRequest $request)
@@ -44,12 +46,16 @@ class RecipeController extends Controller
         }
 
         HealthyRecipe::create([
-            'title'       => $validated['title'],
-            'description' => $validated['description'],
-            'calories'    => $validated['calories'],
-            'images'      => $images,
-            'video'       => $video,
-            'user_id'     => Auth::id(),
+            'title'              => $validated['title'],
+            'description'        => $validated['description'],
+            'calories'           => $validated['calories'],
+            'protein'            => $validated['protein'],
+            'carbs'              => $validated['carbs'],
+            'fats'               => $validated['fats'],
+            'images'             => $images,
+            'video'              => $video,
+            'recipe_category_id' => $validated['recipe_category_id'],
+            'user_id'            => Auth::id(),
         ]);
 
         return redirect()->back()->with('success', 'Recipe created successfully!');
@@ -64,8 +70,9 @@ class RecipeController extends Controller
 
     public function edit(string $id)
     {
-        $recipe = HealthyRecipe::findOrFail($id);
-        return view("admin.recipe.edit", compact("recipe"));
+        $recipe     = HealthyRecipe::findOrFail($id);
+        $categories = RecipeCategory::all();
+        return view("admin.recipe.edit", compact("recipe", "categories"));
     }
 
     public function update(RecipeRequest $request, string $id)
@@ -97,12 +104,16 @@ class RecipeController extends Controller
         }
 
         $recipe->update([
-            'title'       => $validated['title'],
-            'description' => $validated['description'],
-            'calories'    => $validated['calories'],
-            'images'      => $images,
-            'video'       => $video,
-            'user_id'     => Auth::id(),
+            'title'              => $validated['title'],
+            'description'        => $validated['description'],
+            'calories'           => $validated['calories'],
+            'protein'            => $validated['protein'],
+            'carbs'              => $validated['carbs'],
+            'fats'               => $validated['fats'],
+            'images'             => $images,
+            'video'              => $video,
+            'recipe_category_id' => $validated['recipe_category_id'],
+            'user_id'            => Auth::id(),
         ]);
 
         return redirect()->back()->with('success', 'Recipe created successfully!');

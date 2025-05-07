@@ -21,8 +21,9 @@ class UserController extends Controller
 
     public function show(string $id)
     {
-        $user      = User::findOrFail($id);
-        $dietInfo  = $user->dietInfo;
+        $user         = User::findOrFail($id);
+        $specialDiets = SpecialDiet::where('user_id', $id)->latest()->get();
+        $dietInfo     = $user->dietInfo;
 
         // BMR
         $bmr = null;
@@ -48,7 +49,7 @@ class UserController extends Controller
         $lose_1kg   = $tdee ? round($tdee - 1000) : null;
         $lose_1_5kg = $tdee ? round($tdee - 1500) : null;
 
-        return view("admin.user.show", compact("user", "dietInfo", "bmr", "tdee", "lose_05kg", "lose_1kg", "lose_1_5kg"));
+        return view("admin.user.show", compact("user", "dietInfo", "specialDiets", "bmr", "tdee", "lose_05kg", "lose_1kg", "lose_1_5kg"));
     }
 
     public function status(string $type, $id)

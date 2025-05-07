@@ -22,12 +22,16 @@ class RecipeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => 'required|string|max:255',
-            'description' => 'required|string',
-            'calories'    => 'required|integer',
-            'video'       => 'nullable|mimes:mp4|max:50000',
-            'images'      => 'nullable|array',
-            'images.*'    => 'image|mimes:png,jpg,jpeg,gif|max:5000',
+            'title'              => 'required|string|max:255',
+            'description'        => 'required|string',
+            'calories'           => 'required|numeric',
+            'protein'            => 'required|numeric',
+            'carbs'              => 'required|numeric',
+            'fats'               => 'required|numeric',
+            'video'              => 'nullable|mimes:mp4|max:50000',
+            'images'             => 'nullable|array',
+            'images.*'           => 'image|mimes:png,jpg,jpeg,gif|max:5000',
+            'recipe_category_id' => 'required|exists:recipe_categories,id',
         ];
     }
 }

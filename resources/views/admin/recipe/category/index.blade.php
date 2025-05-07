@@ -1,36 +1,42 @@
 @extends('admin.layout')
 
-@section('title')
-    Categories
-@endsection
+@section('title', "Categories")
 
 @section('body')
     <div class="p-3">
         {{-- Message --}}
         @include('admin.success')
 
-        {{-- Add new category --}}
-        <div class="mb-3">
-            <div class="d-flex justify-content-end gap-3">
-                <div style="display: none;" id="categoryForm">
-                    <form action="{{ route('admin.recipeCategory.store') }}" method="post" class="d-flex gab-2 justify-content-end">
-                        @csrf
-                        <div class="mx-2">
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                id="name" aria-describedby="helpId" placeholder="Name">
+        {{-- Add Category Section --}}
+        <div class="category-card p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="mb-0 fw-bold text-primary">Recipe Categories management</h4>
+                <button type="button" class="btn btn-warning toggle-form-btn" id="toggleFormBtn">
+                    <i class="fas fa-plus me-2"></i> Add New Category
+                </button>
+            </div>
+
+            <div class="collapse" id="categoryForm">
+                <form action="{{ route('admin.recipeCategory.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row g-3 align-items-end justify-content-end">
+                        <div class="col-md-5">
+                            <label for="name" class="form-label">Category Name</label>
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                id="name" value="{{ old('name') }}" required>
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </form>
-                </div>
-                <a href="#" class="nav-link" id="addCategory"><i class="fa-solid fa-plus fw-bold text-warning"></i>
-                    Add
-                    new category
-                </a>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-save me-2"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            @error('name')
-                <p class="text-end text-danger">{{ $message }}</p>
-            @enderror
         </div>
 
         <div class="shadow shadow-lg bg-light rounded h-100 p-4">
@@ -56,13 +62,13 @@
                                     <td>{{ $category->created_at->format('d-m-Y') }}</td>
                                     <td>
                                         <a href="{{ route('admin.recipeCategory.show', $category->id) }}"
-                                            class="btn btn-md btn-info" title="Show">
+                                            class="btn btn-sm btn-info" title="Show">
                                             <i class="fa-solid fa-info"></i></i>
                                         </a>
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.recipeCategory.edit', $category->id) }}"
-                                            class="btn btn-md btn-success" title="Edit">
+                                            class="btn btn-sm btn-success" title="Edit">
                                             <i class="fa-solid fa-edit"></i></i>
                                         </a>
                                     </td>
@@ -70,7 +76,7 @@
                                         <form action="{{ route('admin.recipeCategory.delete', $category->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-md"
+                                            <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Are you sure?');" title="Delete">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
@@ -88,11 +94,27 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
-            // Add category
-            $('#addCategory').on('click', function() {
-                $('#categoryForm').toggle('show');
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle form visibility
+            const toggleBtn = document.getElementById('toggleFormBtn');
+            const categoryForm = document.getElementById('categoryForm');
+
+            if (toggleBtn && categoryForm) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const isCollapsed = categoryForm.classList.contains('show');
+
+                    // Toggle collapse state
+                    new bootstrap.Collapse(categoryForm, {
+                        toggle: true
+                    });
+
+                    // Update button text
+                    this.innerHTML = isCollapsed ?
+                        '<i class="fas fa-plus me-2"></i> Add New Category' :
+                        '<i class="fas fa-times me-2"></i> Cancel';
+                });
+            }
         });
     </script>
 @endsection

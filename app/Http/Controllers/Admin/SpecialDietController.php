@@ -30,7 +30,7 @@ class SpecialDietController extends Controller
         // Store images and encode their paths as JSON
         $imgArray = [];
         if ($request->hasFile('images')) {
-            foreach ($diet->images as $image) {
+            foreach ($request->file('images') as $image) {
                 $imgArray[] = Storage::putFile("diets", $image);
             }
             $diet->images = json_encode($imgArray);

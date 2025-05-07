@@ -15,6 +15,7 @@ class DietInfo extends Model
         'workout_hours_per_week',
         'bodyFat',
         'bodyWater',
+        'target',
         'diseases',
         'treatment',
         'user_id',

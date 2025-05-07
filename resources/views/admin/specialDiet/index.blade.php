@@ -1,8 +1,6 @@
 @extends('admin.layout')
 
-@section('title')
-    Diets
-@endsection
+@section('title', 'Diets')
 
 @section('body')
     <div class="p-3">
@@ -51,7 +49,7 @@
                                     <td>{{ $diet->created_at->format('d-m-Y') }}</td>
                                     <td>
                                         <a href="{{ route('admin.specialDiet.edit', $diet->id) }}"
-                                            class="btn btn-md btn-success">
+                                            class="btn btn-sm btn-success">
                                             <i class="fa-solid fa-edit"></i></i>
                                         </a>
                                     </td>
@@ -59,7 +57,7 @@
                                         <form action="{{ route('admin.specialDiet.delete', $diet->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-md"
+                                            <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Are you sure?');">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
@@ -69,6 +67,14 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{-- Pagination --}}
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <div class="text-muted">
+                            Showing {{ $diets->firstItem() }} to {{ $diets->lastItem() }} of
+                            {{ $diets->total() }} entries
+                        </div>
+                        {{ $diets->appends(request()->input())->links() }}
+                    </div>
                 </div>
             @endif
         </div>

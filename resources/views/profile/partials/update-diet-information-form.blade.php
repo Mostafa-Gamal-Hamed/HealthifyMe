@@ -87,10 +87,24 @@
         </div>
 
         <div>
+            <x-input-label for="target" :value="__('target')" />
+            <select name="target" id="target" class="form-select">
+                <option value="{{ old('target', $user->dietInfo ? $user->dietInfo->target : '') }}"
+                    hidden>{{ old('target', $user->dietInfo ? $user->dietInfo->target : '') }}</option>
+                <option value="weight loss">Weight loss</option>
+                <option value="weight stabilization">Weight stabilization</option>
+                <option value="weight gain">Weight gain</option>
+                <option value="increased muscle">Increased muscle mass</option>
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('target')" />
+        </div>
+
+        <div>
             <x-input-label for="diseases" :value="__('Disease')" />
             <x-textarea name="diseases" id="diseases" placeholder="Any disease that affects weight." rows="5" required
                 class="bg-gray-50" :value="old('diseases', $user->dietInfo ? $user->dietInfo->diseases : '')" />
             <x-input-error class="mt-2" :messages="$errors->get('diseases')" />
+            <span class="text-muted">Diseases related to allergies, vitamin and mineral deficiencies, or blood-related diseases.</span>
         </div>
 
         <div>

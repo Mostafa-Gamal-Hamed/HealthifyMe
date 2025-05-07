@@ -58,6 +58,7 @@ class ProfileController extends Controller
                 'workout_hours_per_week' => $data['workout_hours_per_week'],
                 'bodyFat'                => $data['bodyFat'],
                 'bodyWater'              => $data['bodyWater'],
+                'target'                 => $data['target'],
                 'diseases'               => $data['diseases'],
                 'treatment'              => $data['treatment'],
             ]

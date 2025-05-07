@@ -27,7 +27,7 @@ class RecipeCategoryController extends Controller
     public function show(string $id)
     {
         $category = RecipeCategory::findOrFail($id);
-        $recipes  = HealthyRecipe::where('recipe_category_id', $category->id)->count();
+        $recipes  = HealthyRecipe::where('recipe_category_id', $id)->get();
 
         return view("admin.recipe.category.show", compact("category", "recipes"));
     }

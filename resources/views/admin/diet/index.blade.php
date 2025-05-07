@@ -1,21 +1,21 @@
 @extends('admin.layout')
 
-@section('title')
-    Diets
-@endsection
+@section('title', 'Diets')
 
 @section('body')
     <div class="p-3">
-        <h2 class="text-center mb-3 text-success fw-bold">All Diets</h2>
-        <div class="shadow shadow-lg bg-light rounded h-100 mb-5">
+        <div class="shadow shadow-lg bg-light rounded h-100 mb-5 p-4">
             @if ($diets->isEmpty())
                 <h3 class="mb-5 text-center text-danger">No diets found.</h3>
             @else
                 {{-- search --}}
-                <form class="d-flex justify-content-end mb-3 p-2" role="search">
-                    <input class="form-control w-50" type="text" id="search" placeholder="Search by name or calories"
-                        aria-label="Search">
-                </form>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="col fw-bold text-primary">Diets management</h4>
+                    <form class="col" role="search">
+                        <input class="form-control" type="text" id="search" placeholder="Search by name or calories"
+                            aria-label="Search">
+                    </form>
+                </div>
 
                 {{-- table --}}
                 <div class="table-responsive">
@@ -27,7 +27,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Calories</th>
-                                <th scope="col">Updated</th>
+                                <th scope="col">Last updated</th>
                                 <th scope="col" colspan="2">Action</th>
                             </tr>
                         </thead>
@@ -38,13 +38,13 @@
                                     <td>{{ $diet->name }}</td>
                                     <td>
                                         <span data-featherlight="<p>{{ $diet->description }}</p>" style="cursor: pointer;">
-                                            {{ Str::limit($diet->description, 50, '....') }}
+                                            {!! Str::limit($diet->description, 50, '....') !!}
                                         </span>
                                     </td>
                                     <td>{{ $diet->calories }}</td>
                                     <td>{{ $diet->updated_at->format('d-m-Y') }}</td>
                                     <td>
-                                        <a href="{{ route('admin.diet.edit', $diet->id) }}" class="btn btn-md btn-success">
+                                        <a href="{{ route('admin.diet.edit', $diet->id) }}" class="btn btn-sm btn-success">
                                             <i class="fa-solid fa-edit"></i></i>
                                         </a>
                                     </td>
@@ -52,7 +52,7 @@
                                         <form action="{{ route('admin.diet.delete', $diet->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-md"
+                                            <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Are you sure?');">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
@@ -62,6 +62,14 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{-- Pagination --}}
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <div class="text-muted">
+                            Showing {{ $diets->firstItem() }} to {{ $diets->lastItem() }} of
+                            {{ $diets->total() }} entries
+                        </div>
+                        {{ $diets->appends(request()->input())->links() }}
+                    </div>
                 </div>
             @endif
         </div>
@@ -112,7 +120,7 @@
                                             <td>${diet.calories}</td>
                                             <td>${updatedAt}</td>
                                             <td>
-                                                <a href="{{ route('admin.diet.edit', $diet->id) }}" class="btn btn-md btn-success">
+                                                <a href="{{ route('admin.diet.edit', $diet->id) }}" class="btn btn-sm btn-success">
                                                     <i class="fa-solid fa-edit"></i></i>
                                                 </a>
                                             </td>
@@ -120,7 +128,7 @@
                                                 <form action="{{ route('admin.diet.delete', $diet->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-md"
+                                                    <button type="submit" class="btn btn-danger btn-sm"
                                                         onclick="return confirm('Are you sure?');">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>

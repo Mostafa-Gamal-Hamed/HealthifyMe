@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
-            $table->integer('calories');
+            $table->string('calories');
+            $table->float('protein')->default(0);
+            $table->float('carbs')->default(0);
+            $table->float('fats')->default(0);
             $table->longText('workouts')->nullable();
             $table->string('images')->nullable();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');

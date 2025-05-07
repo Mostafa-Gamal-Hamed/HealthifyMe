@@ -12,7 +12,7 @@
                 <h3 class="mb-5 text-center text-danger">No blogs found.</h3>
             @else
                 <div class="row justify-content-between align-items-center mb-4">
-                    <h6 class="col">Blogs</h6>
+                    <h4 class="col fw-bold text-primary">Blogs management</h4>
                     <form class="col" role="search">
                         <input class="form-control me-2" type="text" id="search" placeholder="Search slug"
                             aria-label="Search">
@@ -39,34 +39,32 @@
                                     <td>{{ $blog->title }}</td>
                                     <td>{{ $blog->slug }}</td>
                                     <td>
-                                        <span
-                                            data-featherlight="{{ '<p>' . e($blog->desc) . '</p>' }}"
+                                        <span data-featherlight="{{ '<p>' . e($blog->desc) . '</p>' }}"
                                             style="cursor: pointer;">
                                             {{ Str::limit(strip_tags($blog->desc), 40, '...') }}
                                         </span>
                                     </td>
                                     <td>
-                                        <img
-                                            src="{{ $blog->image ? asset("storage/$blog->image") : asset('images/modern_logo.png') }}"
+                                        <img src="{{ $blog->image ? asset("storage/$blog->image") : asset('images/modern_logo.png') }}"
                                             data-featherlight="<img src='{{ $blog->image ? asset("storage/$blog->image") : asset('images/modern_logo.png') }}' width='300px' alt='Blog'>"
-                                            style="cursor: pointer;"
-                                            class="rounded-circle"
-                                            width="80px"
-                                            alt="Blog Image">
+                                            style="cursor: pointer;" class="rounded-circle" width="80px" alt="Blog Image">
                                     </td>
                                     <td>{{ $blog->created_at->format('d-m-Y') }}</td>
                                     <td>
-                                        <a href="{{ route('admin.blog.show', $blog->id) }}" class="btn btn-sm btn-info" title="Show">
+                                        <a href="{{ route('admin.blog.show', $blog->id) }}" class="btn btn-sm btn-info"
+                                            title="Show">
                                             <i class="fa-solid fa-info"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-sm btn-success" title="Edit">
+                                        <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-sm btn-success"
+                                            title="Edit">
                                             <i class="fa-solid fa-edit"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <form action="{{ route('admin.blog.delete', $blog->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                        <form action="{{ route('admin.blog.delete', $blog->id) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" title="Delete">
@@ -78,7 +76,14 @@
                             @endforeach
                         </tbody>
                     </table>
-
+                    {{-- Pagination --}}
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <div class="text-muted">
+                            Showing {{ $blogs->firstItem() }} to {{ $blogs->lastItem() }} of
+                            {{ $blogs->total() }} entries
+                        </div>
+                        {{ $blogs->appends(request()->input())->links() }}
+                    </div>
                 </div>
             @endif
         </div>
@@ -125,8 +130,8 @@
                                     style="cursor: pointer;" class="img-fluid rounded-circle" width="80px" alt="Blog">
                             `;
 
-                            var show   = `{{ url('showBlog') }}/${blog.id}`;
-                            var edit   = `{{ url('editBlog') }}/${blog.id}`;
+                            var show = `{{ url('showBlog') }}/${blog.id}`;
+                            var edit = `{{ url('editBlog') }}/${blog.id}`;
                             var remove = `{{ url('deleteBlog') }}/${blog.id}`;
 
                             body.append(`

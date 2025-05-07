@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->float('calories');
+            $table->string('calories');
             $table->float('protein')->default(0);
             $table->float('carbs')->default(0);
             $table->float('fats')->default(0);
