@@ -33,3 +33,11 @@ jobs:
       - name: Composer Security Audit
         run: composer audit --locked --no-interaction
 
+      - name: Prepare Laravel Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate --force
+
+      - name: Run PHPUnit Tests
+        run: php artisan test
+
