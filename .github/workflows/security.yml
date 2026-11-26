@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -40,4 +42,9 @@ jobs:
 
       - name: Run PHPUnit Tests
         run: php artisan test
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@70bad232163b09d998ea0707ee80c0ec80798c16
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
