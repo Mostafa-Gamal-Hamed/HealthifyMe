@@ -1,0 +1,51 @@
+name: HealthifyMe Security Pipeline
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  laravel-ci:
+    name: Laravel CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 #2
+        with:
+          php-version: "8.4"
+          extensions: mbstring, xml, curl, zip, gd, intl, pdo_sqlite
+          coverage: none
+
+      - name: Check PHP Version
+        run: php -v
+
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress --no-scripts
+
+      - name: Composer Security Audit
+        run: composer audit --locked --no-interaction
+
+      - name: Prepare Laravel Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate --force
+
+      - name: Run PHPUnit Tests
+        run: php artisan test
+
+      - name: SonarQube Scan
+        if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' }}
+        uses: SonarSource/sonarqube-scan-action@70bad232163b09d998ea0707ee80c0ec80798c16
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
