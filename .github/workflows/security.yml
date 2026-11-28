@@ -44,6 +44,7 @@ jobs:
         run: php artisan test
 
       - name: SonarQube Scan
+        if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' }}
         uses: SonarSource/sonarqube-scan-action@70bad232163b09d998ea0707ee80c0ec80798c16
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
